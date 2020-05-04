@@ -5,6 +5,7 @@ import routes from "./routes";
 import Home from "./views/Home";
 import Chat from "./views/Chat";
 import MainNavbar from "./components/MainNavbar";
+import SinglePost from "./views/SinglePost";
 
 const Router = () => {
   return (
@@ -30,6 +31,11 @@ const Router = () => {
           render={(props) => <Chat {...props} />}
         />
 
+        <Route
+          path={`${routes.post}/:id`}
+          exact
+          render={(props) => <SinglePost {...props} />}
+        />
 
         <Redirect to={routes.home}/>
       </Switch>

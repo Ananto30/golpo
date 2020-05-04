@@ -1,45 +1,51 @@
 import React from "react";
 import Menu from "semantic-ui-react/dist/commonjs/collections/Menu";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
-import {Link} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import routes from "../routes";
+import { Sticky } from "semantic-ui-react";
 
 class MainNavbar extends React.Component {
   state = {
-    activeItem: "home"
-  }
-  handleMenuClick = (e, {name}) => {
-    this.setState({activeItem: name})
-  }
+    activeItem: this.props.location.pathname.substring(1),
+  };
+
+  handleMenuClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+    this.props.history.push("/" + name);
+  };
 
   render() {
     const { activeItem } = this.state;
     return (
-      <Menu secondary
-        // fixed="top"
-            attached="top"
-            style={{height: "100px", border: "none"}}
-      >
-        <Menu.Item name="home" active={activeItem === "home"} onClick={this.handleMenuClick}>
-          <Link to={routes.home}>Home</Link>
-        </Menu.Item>
-        <Menu.Item name="message" active={activeItem === "message"} onClick={this.handleMenuClick}>
-          <Link to={routes.message}>Messages</Link>
-        </Menu.Item>
-        <Menu.Item
-          name='friends'
-        />
-        <Menu.Menu position='right'>
-          <Menu.Item>
-            <Input icon='search' placeholder='Search...'/>
-          </Menu.Item>
+      <Sticky>
+        <Menu
+          secondary
+          // fixed="top"
+          // attached="top"
+          style={{ height: "100px", border: "none", backgroundColor: "#fff" }}
+        >
           <Menu.Item
-            name='logout'
+            name="home"
+            active={activeItem === "home"}
+            onClick={this.handleMenuClick}
           />
-        </Menu.Menu>
-      </Menu>
-    )
+          <Menu.Item
+            name="message"
+            active={activeItem === "message"}
+            onClick={this.handleMenuClick}
+          />
+          <Menu.Item name="friends" />
+          <Menu.Menu position="right">
+            <Menu.Item>
+              <Input icon="search" placeholder="Search..." />
+            </Menu.Item>
+            <Menu.Item name="logout" />
+          </Menu.Menu>
+        </Menu>
+      </Sticky>
+    );
   }
 }
 
-export default MainNavbar
+export default withRouter(MainNavbar);

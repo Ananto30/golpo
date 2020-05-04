@@ -3,24 +3,29 @@ import Comment from "semantic-ui-react/dist/commonjs/views/Comment";
 import Form from "semantic-ui-react/dist/commonjs/collections/Form";
 import Button from "semantic-ui-react/dist/commonjs/elements/Button";
 import React from "react";
+import Moment from "react-moment";
+import CalenderMoment from "./CalenderMoment";
 
-const ChatHistory = ({user}) => (
+const ChatHistory = ({user, history}) => (
 
   <Comment.Group>
     <Header as='h3' dividing>
       Chat with {user}
     </Header>
 
-    <Comment>
-      <Comment.Avatar src='/images/avatar/small/matt.jpg'/>
-      <Comment.Content>
-        <Comment.Author as='a'>Matt</Comment.Author>
-        <Comment.Metadata>
-          <div>Today at 5:42PM</div>
-        </Comment.Metadata>
-        <Comment.Text>How artistic!</Comment.Text>
-      </Comment.Content>
-    </Comment>
+    {history ? history.map((chat) => (
+      <Comment>
+        <Comment.Avatar src='/images/avatar/small/matt.jpg'/>
+        <Comment.Content>
+          <Comment.Author as='a'>{chat.from}</Comment.Author>
+          <Comment.Metadata>
+            <div><CalenderMoment time={chat.time}/> </div>
+          </Comment.Metadata>
+          <Comment.Text>{chat.content}</Comment.Text>
+        </Comment.Content>
+      </Comment>
+    )) : null}
+
     <Form reply>
       <Form.TextArea/>
       <Button content='Add Reply' labelPosition='left' icon='edit' primary/>

@@ -5,11 +5,39 @@ import ChatHistory from "../components/ChatHistory";
 
 export default class Chat extends React.Component {
   state = {
-    activeItem: "mama"
+    activeItem: null,
+    chatHistory: [
+    ]
   }
 
   handleSelect = (e, {name}) => {
     this.setState({activeItem: name})
+    if (name === "mama") {
+      this.setState({
+        chatHistory: [
+          {
+            from: "ananto",
+            time: "2020-04-30T12:59-0500",
+            content: "haha"
+          },
+          {
+            from: "ananto",
+            time: "asdf",
+            content: "haha"
+          },
+          {
+            from: "ananto",
+            time: "asdf",
+            content: "haha"
+          },
+          {
+            from: "ananto",
+            time: "asdf",
+            content: "haha"
+          }
+        ]
+      })
+    }
   }
 
   render() {
@@ -22,7 +50,7 @@ export default class Chat extends React.Component {
         </Grid.Column>
         <Grid.Column width={12}>
 
-          <ChatHistory user={this.state.activeItem}/>
+          <ChatHistory user={this.state.activeItem} history={this.state.chatHistory}/>
         </Grid.Column>
       </Grid>
     )

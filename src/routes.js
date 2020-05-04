@@ -1,5 +1,6 @@
 export default {
   home: "/home",
   profile: "/profile",
-  message: "/message"
+  message: "/message",
+  post: "/post",
 }
