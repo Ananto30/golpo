@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Item } from "semantic-ui-react";
+import { Grid, Item, Dimmer, Loader } from "semantic-ui-react";
 import PostFeed from "../components/PostFeed";
 import ActivityFeed from "../components/ActivityFeed";
 import UserCard from "../components/UserCard";
@@ -40,21 +40,32 @@ class SinglePost extends React.Component {
     return (
       <Grid>
         <Grid.Column width={12}>
-          <Item.Group>
-            <Item>
-              <Item.Image size="tiny" src="/images/avatar/large/stevie.jpg" />
+          {!postAuthor ? (
+            <Dimmer active inverted>
+              <Loader inverted>Loading</Loader>
+            </Dimmer>
+          ) : (
+            <>
+              <Item.Group>
+                <Item>
+                  <Item.Image
+                    size="tiny"
+                    src="/images/avatar/large/stevie.jpg"
+                  />
 
-              <Item.Content>
-                <Item.Header>{postAuthor}</Item.Header>
-                <Item.Meta>
-                  <CalenderMoment time={postDate} />
-                </Item.Meta>
-                <Item.Description>{postText}</Item.Description>
-                {/* <Item.Extra>{postComments.length}</Item.Extra> */}
-              </Item.Content>
-            </Item>
-          </Item.Group>
-          <PostComment comments={postComments} />
+                  <Item.Content>
+                    <Item.Header>{postAuthor}</Item.Header>
+                    <Item.Meta>
+                      <CalenderMoment time={postDate} />
+                    </Item.Meta>
+                    <Item.Description>{postText}</Item.Description>
+                    {/* <Item.Extra>{postComments.length}</Item.Extra> */}
+                  </Item.Content>
+                </Item>
+              </Item.Group>
+              <PostComment comments={postComments} />
+            </>
+          )}
         </Grid.Column>
         <Grid.Column width={4}>
           <ActivityFeed />

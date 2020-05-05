@@ -11,27 +11,31 @@ const PostComment = ({ comments }) => (
       Comments
     </Header>
 
-    {comments.map((comment) => (
-      <Comment>
-        <Comment.Avatar src="/images/avatar/small/matt.jpg" />
-        <Comment.Content>
-          <Comment.Author as="a">{comment.author}</Comment.Author>
-          <Comment.Metadata>
-            <div>
-              <CalenderMoment time={comment.date} />
-            </div>
-          </Comment.Metadata>
-          <Comment.Text>{comment.text}</Comment.Text>
-          {/* <Comment.Actions>
+    {comments
+      // .sort(function (a, b) {
+      //   return new Date(b.date) - new Date(a.date);
+      // })
+      .map((comment) => (
+        <Comment>
+          <Comment.Avatar src="/images/avatar/small/matt.jpg" />
+          <Comment.Content>
+            <Comment.Author as="a">{comment.author}</Comment.Author>
+            <Comment.Metadata>
+              <div>
+                <CalenderMoment time={comment.date} />
+              </div>
+            </Comment.Metadata>
+            <Comment.Text>{comment.text}</Comment.Text>
+            {/* <Comment.Actions>
             <Comment.Action>Reply</Comment.Action>
           </Comment.Actions> */}
-        </Comment.Content>
-      </Comment>
-    ))}
+          </Comment.Content>
+        </Comment>
+      ))}
 
     <Form reply>
       <Form.TextArea />
-      <Button content="Add Reply" labelPosition="left" icon="edit" primary />
+      <Button content="Add Comment" labelPosition="left" icon="edit" primary />
     </Form>
   </Comment.Group>
 );

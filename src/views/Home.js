@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { Grid, Sticky, Ref } from "semantic-ui-react";
+import { Grid, Sticky, Ref, Dimmer, Loader } from "semantic-ui-react";
 import PostFeed from "../components/PostFeed";
 import ActivityFeed from "../components/ActivityFeed";
 import UserCard from "../components/UserCard";
@@ -15,9 +15,8 @@ class Home extends React.Component {
   }
   componentDidMount() {
     client.Post.getAll().then((res) => {
-      console.log(res.data);
       this.setState({
-        posts: res.data,
+        posts: res.data.posts,
       });
     });
   }
@@ -32,7 +31,13 @@ class Home extends React.Component {
             </Sticky>
           </Grid.Column>
           <Grid.Column width={8}>
-            <PostFeed posts={posts} />
+            {posts.length === 0 ? (
+              <Dimmer active inverted>
+                <Loader inverted>Loading</Loader>
+              </Dimmer>
+            ) : (
+              <PostFeed posts={posts} />
+            )}
           </Grid.Column>
           <Grid.Column width={4}>
             <Sticky context={this.contextRef} offset={100}>

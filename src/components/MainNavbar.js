@@ -1,7 +1,7 @@
 import React from "react";
 import Menu from "semantic-ui-react/dist/commonjs/collections/Menu";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import routes from "../routes";
 import { Sticky } from "semantic-ui-react";
 
@@ -12,28 +12,38 @@ class MainNavbar extends React.Component {
 
   handleMenuClick = (e, { name }) => {
     this.setState({ activeItem: name });
-    this.props.history.push("/" + name);
+    // this.props.history.push("/" + name);
   };
 
   render() {
     const { activeItem } = this.state;
+
     return (
       <Sticky>
         <Menu
           secondary
-          // fixed="top"
-          // attached="top"
           style={{ height: "100px", border: "none", backgroundColor: "#fff" }}
         >
           <Menu.Item
             name="home"
             active={activeItem === "home"}
             onClick={this.handleMenuClick}
+            as={Link}
+            to={routes.home}
+          />
+          <Menu.Item
+            name="profile"
+            active={activeItem === "message"}
+            onClick={this.handleMenuClick}
+            as={Link}
+            to={routes.profile}
           />
           <Menu.Item
             name="message"
             active={activeItem === "message"}
             onClick={this.handleMenuClick}
+            as={Link}
+            to={routes.message}
           />
           <Menu.Item name="friends" />
           <Menu.Menu position="right">

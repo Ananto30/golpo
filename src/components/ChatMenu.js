@@ -1,20 +1,17 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Menu from "semantic-ui-react/dist/commonjs/collections/Menu";
 
-const ChatMenu = ({activeItem, handleSelect}) => {
+const ChatMenu = ({ activeItem, handleSelect, chats, loggedUser }) => {
   return (
     <Menu secondary vertical>
-      <Menu.Item
-        name='mama'
-        active={activeItem === 'mama'}
-        onClick={handleSelect}
-      />
-      <Menu.Item
-        name='mami'
-        active={activeItem === 'mami'}
-        onClick={handleSelect}
-      />
+      {chats.map((chat) => (
+        <Menu.Item
+          name={chat.participants.filter((e) => e !== loggedUser.username)[0]}
+          active={activeItem === chat.participants[0]}
+          onClick={handleSelect}
+        />
+      ))}
     </Menu>
-  )
-}
-export default ChatMenu
+  );
+};
+export default ChatMenu;
