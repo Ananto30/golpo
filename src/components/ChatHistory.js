@@ -3,7 +3,6 @@ import Comment from "semantic-ui-react/dist/commonjs/views/Comment";
 import Form from "semantic-ui-react/dist/commonjs/collections/Form";
 import Button from "semantic-ui-react/dist/commonjs/elements/Button";
 import React from "react";
-import Moment from "react-moment";
 import CalenderMoment from "./CalenderMoment";
 
 const ChatHistory = ({ user, history }) => (

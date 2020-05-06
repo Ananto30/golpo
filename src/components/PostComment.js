@@ -35,7 +35,12 @@ const PostComment = ({ comments }) => (
 
     <Form reply>
       <Form.TextArea />
-      <Button content="Add Comment" labelPosition="left" icon="edit" primary />
+      <Button
+        content="Add Comment"
+        labelPosition="left"
+        icon="edit"
+        secondary
+      />
     </Form>
   </Comment.Group>
 );

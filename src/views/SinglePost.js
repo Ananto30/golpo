@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Grid, Item, Dimmer, Loader } from "semantic-ui-react";
-import PostFeed from "../components/PostFeed";
 import ActivityFeed from "../components/ActivityFeed";
-import UserCard from "../components/UserCard";
 import PostComment from "../components/PostComment";
 import { withRouter } from "react-router-dom";
 import CalenderMoment from "../components/CalenderMoment";

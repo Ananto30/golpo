@@ -8,6 +8,7 @@ import MainNavbar from "./components/MainNavbar";
 import PrivateRoute from "./components/PrivateRoute";
 import SinglePost from "./views/SinglePost";
 import Login from "./views/login";
+import Profile from "./views/Profile";
 
 const Router = () => {
   return (
@@ -30,9 +31,13 @@ const Router = () => {
           <Route
             path={routes.profile}
             exact
-            render={(props) => <Home {...props} />}
+            render={(props) => <Profile {...props} />}
           />
-
+          <Route
+            path={`${routes.profile}/:id`}
+            exact
+            render={(props) => <Profile {...props} />}
+          />
           <Route
             path={routes.message}
             exact

@@ -1,11 +1,22 @@
 import React, { createContext } from "react";
-import { Grid, Sticky, Ref, Dimmer, Loader } from "semantic-ui-react";
+import {
+  Grid,
+  Sticky,
+  Ref,
+  Dimmer,
+  Loader,
+  Button,
+  Form,
+} from "semantic-ui-react";
+import { withRouter } from "react-router-dom";
+import { inject, observer } from "mobx-react";
+
 import PostFeed from "../components/PostFeed";
 import ActivityFeed from "../components/ActivityFeed";
 import UserCard from "../components/UserCard";
 import client from "../client";
 
-class Home extends React.Component {
+class Profile extends React.Component {
   contextRef = createContext();
   constructor(props) {
     super(props);
@@ -15,12 +26,17 @@ class Home extends React.Component {
     };
   }
   componentDidMount() {
-    client.Post.getAll().then((res) => {
+    const { match } = this.props;
+    let username = match.params.id;
+    if (username == null) {
+      username = "me";
+    }
+    client.Post.getByUsername(username).then((res) => {
       this.setState({
         posts: res.data.posts,
       });
     });
-    client.User.getByUsername("me").then((res) => {
+    client.User.getByUsername(username).then((res) => {
       this.setState({
         userInfo: res.data,
       });
@@ -29,6 +45,8 @@ class Home extends React.Component {
   componentDidUpdate() {}
   render() {
     const { posts, userInfo } = this.state;
+    const loggedUser = this.props.commonStore.loggedUser;
+    const ownerProfile = userInfo && loggedUser.username === userInfo.username;
     return (
       <Ref innerRef={this.contextRef}>
         <Grid>
@@ -39,11 +57,23 @@ class Home extends React.Component {
                   <Loader inverted>Loading</Loader>
                 </Dimmer>
               ) : (
-                <UserCard userInfo={userInfo} ownerProfile={true} />
+                <UserCard userInfo={userInfo} ownerProfile={ownerProfile} />
               )}
             </Sticky>
           </Grid.Column>
           <Grid.Column width={8}>
+            {ownerProfile ? (
+              <Form reply>
+                <Form.TextArea />
+                <Button
+                  content="Share a joke!"
+                  labelPosition="left"
+                  icon="edit"
+                  secondary
+                />
+              </Form>
+            ) : null}
+
             {posts.length === 0 ? (
               <Dimmer active inverted>
                 <Loader inverted>Loading</Loader>
@@ -63,4 +93,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default inject("commonStore")(observer(withRouter(Profile)));

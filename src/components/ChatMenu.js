@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Menu from "semantic-ui-react/dist/commonjs/collections/Menu";
 
 const ChatMenu = ({ activeItem, handleSelect, chats, loggedUser }) => {

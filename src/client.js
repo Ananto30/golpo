@@ -16,6 +16,13 @@ const getHeader = () => {
   };
 };
 
+const errorHandler = (err) => {
+  console.log(err);
+  if (err.response.status === 401 || err.response.status === 403) {
+    commonStore.resetAuth();
+  }
+};
+
 const Auth = {
   login: (username, password) =>
     api.post("/auth/login", {
@@ -24,18 +31,27 @@ const Auth = {
     }),
 };
 
+const User = {
+  getByUsername: (username) =>
+    api.get(`/user/${username}`, getHeader()).catch(errorHandler),
+};
+
 const Post = {
-  getAll: () => api.get("/post", getHeader()),
-  getById: (id) => api.get(`/post/${id}`, getHeader()),
+  getAll: () => api.get("/post", getHeader()).catch(errorHandler),
+  getById: (id) => api.get(`/post/${id}`, getHeader()).catch(errorHandler),
+  getByUsername: (username) =>
+    api.get(`/post/user/${username}`, getHeader()).catch(errorHandler),
 };
 
 const Chat = {
-  getChats: () => api.get("/chat", getHeader()),
-  getChatsByReceiver: (receiver) => api.get(`/chat/${receiver}`, getHeader()),
+  getChats: () => api.get("/chat", getHeader()).catch(errorHandler),
+  getChatsByReceiver: (receiver) =>
+    api.get(`/chat/${receiver}`, getHeader()).catch(errorHandler),
 };
 
 export default {
   Auth,
+  User,
   Post,
   Chat,
 };

@@ -33,7 +33,7 @@ class MainNavbar extends React.Component {
           />
           <Menu.Item
             name="profile"
-            active={activeItem === "message"}
+            active={activeItem === "profile"}
             onClick={this.handleMenuClick}
             as={Link}
             to={routes.profile}
@@ -45,7 +45,7 @@ class MainNavbar extends React.Component {
             as={Link}
             to={routes.message}
           />
-          <Menu.Item name="friends" />
+          {/* <Menu.Item name="friends" /> */}
           <Menu.Menu position="right">
             <Menu.Item>
               <Input icon="search" placeholder="Search..." />

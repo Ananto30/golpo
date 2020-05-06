@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Item, Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Dimmer, Loader } from "semantic-ui-react";
 
 import { inject, observer } from "mobx-react";
 
@@ -19,6 +19,9 @@ class Chat extends React.Component {
         chats: res.data.chats,
       });
     });
+  }
+  componentDidUpdate() {
+    
   }
   handleSelect = (e, { name }) => {
     this.setState({ activeItem: name });
