@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Image, Modal, Popup } from "semantic-ui-react";
+import { inject, observer } from "mobx-react";
 
 import client from "../client";
 
@@ -48,33 +49,33 @@ class UpdateProfileImageModal extends Component {
       this.setState({
         userInfo: res.data,
       });
+      this.props.commonStore.addUserImageCache(res.data);
     });
     this.close();
   };
 
   render() {
     const { open, dimmer, userInfo } = this.state;
-
+    const image = (
+      <Image
+        src={`/images/avatar/large/${
+          userInfo && userInfo.image ? userInfo.image : "elyse.png"
+        }`}
+        wrapped
+        ui={true}
+      />
+    );
     return (
       <div>
-        <Popup
-          trigger={
-            <Image
-              src={`/images/avatar/large/${
-                userInfo && userInfo.image ? userInfo.image : "elyse.png"
-              }`}
-              wrapped
-              ui={true}
-            />
-          }
-          flowing
-          hoverable
-          position="bottom center"
-        >
-          <Button size="mini" onClick={this.show("blurring")}>
-            Choose Image
-          </Button>
-        </Popup>
+        {this.props.ownerProfile ? (
+          <Popup trigger={image} flowing hoverable position="bottom center">
+            <Button size="mini" onClick={this.show("blurring")}>
+              Change Image
+            </Button>
+          </Popup>
+        ) : (
+          image
+        )}
 
         <Modal size="tiny" dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Choose the image that reflects you!</Modal.Header>
@@ -98,4 +99,4 @@ class UpdateProfileImageModal extends Component {
   }
 }
 
-export default UpdateProfileImageModal;
+export default inject("commonStore")(observer(UpdateProfileImageModal));

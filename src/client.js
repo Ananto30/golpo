@@ -2,7 +2,7 @@ import axios from "axios";
 import commonStore from "./store/commonStore.js";
 
 const api = axios.create({
-  baseURL: "http://localhost:7000",
+  baseURL: "http://192.168.0.105:7000",
   headers: {
     "Content-Type": "application/json",
   },
@@ -23,6 +23,10 @@ const errorHandler = (err) => {
   }
 };
 
+const verifySuccessCalls = (res) => {
+  if (res.status === 200) return res;
+};
+
 const Auth = {
   login: (username, password) =>
     api.post("/auth/login", {
@@ -33,16 +37,36 @@ const Auth = {
 
 const User = {
   getByUsername: (username) =>
-    api.get(`/user/${username}`, getHeader()).catch(errorHandler),
+    api
+      .get(`/user/${username}`, getHeader())
+      .then(verifySuccessCalls)
+      .catch(errorHandler),
   updateMeta: (meta) =>
     api.post("/user/me/update", meta, getHeader()).catch(errorHandler),
+
+  //TODO: this one is pretty tricky, need to rethink about the header design
+  getUsersMeta: (usernames) =>
+    api
+      .get("/user/usersmeta", {
+        params: { usernames: usernames },
+        headers: {
+          Authorization: "Bearer " + commonStore.authToken,
+        },
+      })
+      .then(verifySuccessCalls)
+      .catch(errorHandler),
 };
 
 const Post = {
-  getAll: () => api.get("/post", getHeader()).catch(errorHandler),
+  getAll: () =>
+    api.get("/post", getHeader()).then(verifySuccessCalls).catch(errorHandler),
   getById: (id) => api.get(`/post/${id}`, getHeader()).catch(errorHandler),
   getByUsername: (username) =>
     api.get(`/post/user/${username}`, getHeader()).catch(errorHandler),
+  createPost: (text) =>
+    api.post("/post", { text: text }, getHeader()).catch(errorHandler),
+  createComment: (postId, text) =>
+    api.post(`/post/${postId}/comment`, { text: text }, getHeader()).catch(errorHandler),
 };
 
 const Chat = {

@@ -3,9 +3,9 @@ import Comment from "semantic-ui-react/dist/commonjs/views/Comment";
 import Form from "semantic-ui-react/dist/commonjs/collections/Form";
 import Button from "semantic-ui-react/dist/commonjs/elements/Button";
 import React from "react";
-import CalenderMoment from "./CalenderMoment";
+import SComment from "./SComment";
 
-const PostComment = ({ comments }) => (
+const PostComment = ({ comments, handleComment }) => (
   <Comment.Group>
     <Header as="h3" dividing>
       Comments
@@ -16,25 +16,11 @@ const PostComment = ({ comments }) => (
       //   return new Date(b.date) - new Date(a.date);
       // })
       .map((comment) => (
-        <Comment>
-          <Comment.Avatar src="/images/avatar/small/matt.jpg" />
-          <Comment.Content>
-            <Comment.Author as="a">{comment.author}</Comment.Author>
-            <Comment.Metadata>
-              <div>
-                <CalenderMoment time={comment.date} />
-              </div>
-            </Comment.Metadata>
-            <Comment.Text>{comment.text}</Comment.Text>
-            {/* <Comment.Actions>
-            <Comment.Action>Reply</Comment.Action>
-          </Comment.Actions> */}
-          </Comment.Content>
-        </Comment>
+        <SComment comment={comment} />
       ))}
 
-    <Form reply>
-      <Form.TextArea />
+    <Form id="commentText" onSubmit={handleComment} reply>
+      <Form.TextArea name="text" rows={2} required/>
       <Button
         content="Add Comment"
         labelPosition="left"

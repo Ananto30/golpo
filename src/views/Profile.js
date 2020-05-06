@@ -7,6 +7,7 @@ import {
   Loader,
   Button,
   Form,
+  Header,
 } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
@@ -18,11 +19,18 @@ import client from "../client";
 
 class Profile extends React.Component {
   contextRef = createContext();
+  shareLines = [
+    "Share a joke",
+    "Tell them something",
+    "Are you ok?",
+    "Tell me, do you bleed?",
+  ];
   constructor(props) {
     super(props);
     this.state = {
       posts: [],
       userInfo: null,
+      isLoading: true,
     };
   }
   componentDidMount() {
@@ -34,17 +42,32 @@ class Profile extends React.Component {
     client.Post.getByUsername(username).then((res) => {
       this.setState({
         posts: res.data.posts,
+        isLoading: false,
       });
     });
     client.User.getByUsername(username).then((res) => {
       this.setState({
         userInfo: res.data,
       });
+
+      this.props.commonStore.addUserImageCache(res.data);
     });
   }
-  componentDidUpdate() {}
+  handlePost = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    client.Post.createPost(data.get("text")).then((res) => {
+      let data = res.data;
+      data.comments = 0;
+      this.setState((prev) => ({
+        posts: [...prev.posts, data],
+      }));
+      // TODO: this seems a bit shitty
+      document.getElementById("postText").reset();
+    });
+  };
   render() {
-    const { posts, userInfo } = this.state;
+    const { posts, userInfo, isLoading } = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
     const ownerProfile = userInfo && loggedUser.username === userInfo.username;
     return (
@@ -62,22 +85,30 @@ class Profile extends React.Component {
             </Sticky>
           </Grid.Column>
           <Grid.Column width={8}>
-            {ownerProfile ? (
-              <Form reply>
-                <Form.TextArea />
+            {ownerProfile && (
+              <Form id="postText" onSubmit={this.handlePost}>
+                <Form.TextArea name="text" required rows={4}  />
                 <Button
-                  content="Share a joke!"
+                  content={
+                    this.shareLines[
+                      Math.floor(Math.random() * this.shareLines.length)
+                    ]
+                  }
                   labelPosition="left"
                   icon="edit"
                   secondary
                 />
               </Form>
-            ) : null}
+            )}
 
-            {posts.length === 0 ? (
+            {isLoading ? (
               <Dimmer active inverted>
                 <Loader inverted>Loading</Loader>
               </Dimmer>
+            ) : posts.length === 0 ? (
+              <Header as="h2" icon textAlign="center">
+                This one doesn't like to share anything!
+              </Header>
             ) : (
               <PostFeed posts={posts} />
             )}

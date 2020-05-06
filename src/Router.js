@@ -15,12 +15,12 @@ const Router = () => {
     <BrowserRouter>
       <MainNavbar />
 
-      <Route
-        path={routes.login}
-        exact
-        render={(props) => <Login {...props} />}
-      />
       <Switch>
+        <Route
+          path={routes.login}
+          exact
+          render={(props) => <Login {...props} />}
+        />
         <PrivateRoute>
           <Route path="/" exact render={(props) => <Home {...props} />} />
           <Route

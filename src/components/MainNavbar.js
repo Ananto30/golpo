@@ -1,9 +1,10 @@
 import React from "react";
-import Menu from "semantic-ui-react/dist/commonjs/collections/Menu";
-import Input from "semantic-ui-react/dist/commonjs/elements/Input";
+
+import { inject, observer } from "mobx-react";
 import { withRouter, Link } from "react-router-dom";
+import { Sticky, Menu, Input } from "semantic-ui-react";
+
 import routes from "../routes";
-import { Sticky } from "semantic-ui-react";
 
 class MainNavbar extends React.Component {
   state = {
@@ -15,8 +16,16 @@ class MainNavbar extends React.Component {
     // this.props.history.push("/" + name);
   };
 
+  handleLogout = (e) => {
+    e.preventDefault();
+    this.props.commonStore.resetAuth();
+    this.setState({ activeItem: null });
+    this.props.history.push(routes.login);
+  };
+
   render() {
     const { activeItem } = this.state;
+    const loggedUser = this.props.commonStore.loggedUser;
 
     return (
       <Sticky>
@@ -50,7 +59,11 @@ class MainNavbar extends React.Component {
             <Menu.Item>
               <Input icon="search" placeholder="Search..." />
             </Menu.Item>
-            <Menu.Item name="logout" />
+            {loggedUser ? (
+              <Menu.Item name="logout" onClick={this.handleLogout} />
+            ) : (
+              <Menu.Item name="login" as={Link} to={routes.login} />
+            )}
           </Menu.Menu>
         </Menu>
       </Sticky>
@@ -58,4 +71,4 @@ class MainNavbar extends React.Component {
   }
 }
 
-export default withRouter(MainNavbar);
+export default inject("commonStore")(observer(withRouter(MainNavbar)));

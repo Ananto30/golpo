@@ -12,17 +12,17 @@ class Chat extends React.Component {
     activeItem: null,
     chats: [],
     chatHistory: [],
+    isLoading: true,
   };
   componentDidMount() {
     client.Chat.getChats().then((res) => {
       this.setState({
         chats: res.data.chats,
+        isLoading: false,
       });
     });
   }
-  componentDidUpdate() {
-    
-  }
+  componentDidUpdate() {}
   handleSelect = (e, { name }) => {
     this.setState({ activeItem: name });
     client.Chat.getChatsByReceiver(name).then((res) => {
@@ -33,15 +33,17 @@ class Chat extends React.Component {
   };
 
   render() {
-    const { activeItem, chats, chatHistory } = this.state;
+    const { activeItem, chats, chatHistory, isLoading } = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
     return (
       <Grid>
         <Grid.Column width={4}>
-          {chats.length === 0 ? (
+          {isLoading ? (
             <Dimmer active inverted>
               <Loader inverted>Loading</Loader>
             </Dimmer>
+          ) : chats.length === 0 ? (
+            "Can't you talk?! Go to someones profile and start talking :|"
           ) : (
             <ChatMenu
               activeItem={activeItem}
@@ -52,10 +54,7 @@ class Chat extends React.Component {
           )}
         </Grid.Column>
         <Grid.Column width={12}>
-          {!activeItem ? (
-            "Select a user from left"
-          ) : (
-            
+          {activeItem && (
             <ChatHistory user={activeItem} history={chatHistory} />
           )}
         </Grid.Column>

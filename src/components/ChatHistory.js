@@ -3,7 +3,7 @@ import Comment from "semantic-ui-react/dist/commonjs/views/Comment";
 import Form from "semantic-ui-react/dist/commonjs/collections/Form";
 import Button from "semantic-ui-react/dist/commonjs/elements/Button";
 import React from "react";
-import CalenderMoment from "./CalenderMoment";
+import Chat from "./Chat";
 
 const ChatHistory = ({ user, history }) => (
   <Comment.Group>
@@ -11,22 +11,7 @@ const ChatHistory = ({ user, history }) => (
       Chat with {user}
     </Header>
 
-    {history
-      ? history.map((chat) => (
-          <Comment>
-            <Comment.Avatar src="/images/avatar/small/matt.jpg" />
-            <Comment.Content>
-              <Comment.Author as="a">{chat.from}</Comment.Author>
-              <Comment.Metadata>
-                <div>
-                  <CalenderMoment time={chat.date} />{" "}
-                </div>
-              </Comment.Metadata>
-              <Comment.Text>{chat.text}</Comment.Text>
-            </Comment.Content>
-          </Comment>
-        ))
-      : null}
+    {history ? history.map((chat) => <Chat chat={chat} />) : null}
 
     <Form reply>
       <Form.TextArea />

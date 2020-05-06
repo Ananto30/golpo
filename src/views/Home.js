@@ -5,6 +5,8 @@ import ActivityFeed from "../components/ActivityFeed";
 import UserCard from "../components/UserCard";
 import client from "../client";
 
+import { inject, observer } from "mobx-react";
+
 class Home extends React.Component {
   contextRef = createContext();
   constructor(props) {
@@ -18,6 +20,14 @@ class Home extends React.Component {
     client.Post.getAll().then((res) => {
       this.setState({
         posts: res.data.posts,
+      });
+      
+      let usernames = res.data.posts.map(({ author }) => author);
+      const usernamesSet = new Set(usernames);
+      usernames = [...usernamesSet];
+
+      client.User.getUsersMeta(usernames).then((res) => {
+        this.props.commonStore.setImageCache(res.data.users);
       });
     });
     client.User.getByUsername("me").then((res) => {
@@ -63,4 +73,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default inject("commonStore")(observer(Home));

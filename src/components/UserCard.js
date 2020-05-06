@@ -12,7 +12,7 @@ const UserCard = ({ userInfo, ownerProfile }) => {
   };
   return (
     <Card>
-      <UpdateProfileImageModal userInfo={uInfo} />
+      <UpdateProfileImageModal userInfo={uInfo} ownerProfile={ownerProfile}/>
       <Card.Content>
         <Card.Header>{uInfo.username}</Card.Header>
         <Card.Meta>
