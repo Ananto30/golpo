@@ -34,6 +34,8 @@ const Auth = {
 const User = {
   getByUsername: (username) =>
     api.get(`/user/${username}`, getHeader()).catch(errorHandler),
+  updateMeta: (meta) =>
+    api.post("/user/me/update", meta, getHeader()).catch(errorHandler),
 };
 
 const Post = {

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Button, Image, Modal, Popup } from "semantic-ui-react";
 
+import client from "../client";
+
 class UpdateProfileImageModal extends Component {
-  state = { open: false };
+  state = { open: false, userInfo: this.props.userInfo };
 
   listOfNames = [
     "ade.jpg",
@@ -39,18 +41,31 @@ class UpdateProfileImageModal extends Component {
   close = () => this.setState({ open: false });
 
   sendMessageHandler = (e) => {
-    console.log(e);
+    const meta = {
+      image: e,
+    };
+    client.User.updateMeta(meta).then((res) => {
+      this.setState({
+        userInfo: res.data,
+      });
+    });
     this.close();
   };
 
   render() {
-    const { open, dimmer } = this.state;
+    const { open, dimmer, userInfo } = this.state;
 
     return (
       <div>
         <Popup
           trigger={
-            <Image src="/images/avatar/large/elyse.png" wrapped ui={true} />
+            <Image
+              src={`/images/avatar/large/${
+                userInfo && userInfo.image ? userInfo.image : "elyse.png"
+              }`}
+              wrapped
+              ui={true}
+            />
           }
           flowing
           hoverable

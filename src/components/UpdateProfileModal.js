@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Button, Header, Image, Modal, Form } from "semantic-ui-react";
 
+import client from "../client";
+
 class UpdateProfileModal extends Component {
-  state = { open: false };
+  state = { open: false, userInfo: this.props.userInfo };
 
   show = (dimmer) => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false });
@@ -10,12 +12,20 @@ class UpdateProfileModal extends Component {
   sendMessageHandler = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
+    const meta = {};
+    if (data.get("work")) meta["work"] = data.get("work");
+    if (data.get("tagline")) meta["tagline"] = data.get("tagline");
+    client.User.updateMeta(meta).then((res) => {
+      this.setState({
+        userInfo: res.data,
+      });
+      this.props.handleInfoChange(res.data);
+    });
     this.close();
-    console.log(data.get("work"));
   };
 
   render() {
-    const { open, dimmer } = this.state;
+    const { open, dimmer, userInfo } = this.state;
 
     return (
       <div>
@@ -36,11 +46,23 @@ class UpdateProfileModal extends Component {
             <Modal.Description>
               <Form.Field>
                 <label>Occupation/Work/Study</label>
-                <input name="work" placeholder="What do you do? Most of the time....." />
+                <input
+                  name="work"
+                  placeholder="What do you do? Most of the time....."
+                  defaultValue={
+                    userInfo && userInfo.work ? userInfo.work : null
+                  }
+                />
               </Form.Field>
               <Form.Field>
                 <label>Tagline</label>
-                <input name="tagline" placeholder="You don't have a tagline?! Phew!" />
+                <input
+                  name="tagline"
+                  placeholder="You don't have a tagline?! Phew!"
+                  defaultValue={
+                    userInfo && userInfo.tagline ? userInfo.tagline : null
+                  }
+                />
               </Form.Field>
             </Modal.Description>
           </Modal.Content>
