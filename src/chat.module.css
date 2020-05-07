@@ -1,0 +1,27 @@
+.chatmenu {
+  height: 90vh;
+  overflow: auto;
+  /* this will hide the scrollbar in mozilla based browsers */
+  overflow: -moz-scrollbars-none;
+  /* this will hide the scrollbar in internet explorers */
+  -ms-overflow-style: none;
+}
+/* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
+.chatmenu::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}
+
+.chathistory {
+  height: 65vh;
+  overflow: auto;
+  /* this will hide the scrollbar in mozilla based browsers */
+  overflow: -moz-scrollbars-none;
+  /* this will hide the scrollbar in internet explorers */
+  -ms-overflow-style: none;
+}
+/* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
+.chathistory::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}

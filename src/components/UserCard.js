@@ -30,7 +30,7 @@ const UserCard = ({ userInfo, ownerProfile }) => {
             handleInfoChange={handleInfoChange}
           />
         ) : (
-          <SendMessageModal />
+          <SendMessageModal user={uInfo.username}/>
         )}
       </Card.Content>
     </Card>

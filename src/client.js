@@ -87,6 +87,16 @@ const Chat = {
         getHeader()
       )
       .catch(errorHandler),
+  sendMessage: (receiver, text) =>
+    api
+      .post(
+        `/chat/${receiver}/message`,
+        {
+          text: text,
+        },
+        getHeader()
+      )
+      .catch(errorHandler),
 };
 
 export default {

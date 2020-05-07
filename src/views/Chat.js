@@ -1,13 +1,15 @@
-import React from "react";
-import { Grid, Dimmer, Loader } from "semantic-ui-react";
+import React, { createContext } from "react";
+import { Grid, Dimmer, Loader, Form, Button, Ref } from "semantic-ui-react";
 
 import { inject, observer } from "mobx-react";
 
 import ChatMenu from "../components/ChatMenu";
 import ChatHistory from "../components/ChatHistory";
 import client from "../client";
+import styles from "../chat.module.css";
 
 class Chat extends React.Component {
+  contextRef = createContext();
   state = {
     activeItem: null,
     chats: [],
@@ -54,6 +56,7 @@ class Chat extends React.Component {
     );
   };
 
+
   render() {
     const {
       activeItem,
@@ -64,39 +67,57 @@ class Chat extends React.Component {
     } = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
     return (
-      <Grid>
-        <Grid.Column width={4}>
-          {menuLoading ? (
-            <Dimmer active inverted>
-              <Loader inverted>Loading</Loader>
-            </Dimmer>
-          ) : chats.length === 0 ? (
-            "Can't you talk?! Go to someone's profile and start talking :|"
-          ) : (
-            <ChatMenu
-              activeItem={activeItem}
-              handleSelect={this.handleSelect}
-              chats={chats}
-              loggedUser={loggedUser}
-            />
-          )}
-        </Grid.Column>
-        <Grid.Column width={10}>
-          {historyLoading ? (
-            <Dimmer active inverted>
-              <Loader inverted>Loading</Loader>
-            </Dimmer>
-          ) : (
-            activeItem && (
-              <ChatHistory
-                user={activeItem}
-                history={chatHistory}
-                handleChat={this.handleChat}
+      <Ref innerRef={this.contextRef}>
+        <Grid>
+          <Grid.Column width={4} className={styles.chatmenu}>
+            {menuLoading ? (
+              <Dimmer active inverted>
+                <Loader inverted>Loading</Loader>
+              </Dimmer>
+            ) : chats.length === 0 ? (
+              "Can't you talk?! Go to someone's profile and start talking :|"
+            ) : (
+              <ChatMenu
+                activeItem={activeItem}
+                handleSelect={this.handleSelect}
+                chats={chats}
+                loggedUser={loggedUser}
               />
-            )
-          )}
-        </Grid.Column>
-      </Grid>
+            )}
+          </Grid.Column>
+          <Grid.Column width={10}>
+            {historyLoading ? (
+              <Dimmer active inverted>
+                <Loader inverted>Loading</Loader>
+              </Dimmer>
+            ) : (
+              activeItem && (
+                <>
+                  <ChatHistory
+                    user={activeItem}
+                    history={chatHistory}
+                    handleChat={this.handleChat}
+                    
+                  />
+                  <Form
+                    id="chatText"
+                    onSubmit={this.handleChat}
+                    reply
+                    style={{ paddingTop: "20px" }}
+                  >
+                    <Form.TextArea name="text" />
+                    <Button
+                      content="Add Reply"
+                      labelPosition="left"
+                      icon="edit"
+                    />
+                  </Form>
+                </>
+              )
+            )}
+          </Grid.Column>
+        </Grid>
+      </Ref>
     );
   }
 }
