@@ -38,7 +38,6 @@ class SinglePost extends React.Component {
     const data = new FormData(e.target);
     client.Post.createComment(this.state.post.id, data.get("text")).then(
       (res) => {
-        console.log(res.data.comments);
         this.setState({
           postComments: res.data.comments,
         });

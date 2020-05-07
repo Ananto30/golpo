@@ -5,7 +5,7 @@ import Router from "./Router";
 
 function App() {
   return (
-    <Container>
+    <Container style={{ maxHeight: "90vh" }}>
       <Router />
     </Container>
   );

@@ -3,6 +3,7 @@
   overflow: auto;
   /* this will hide the scrollbar in mozilla based browsers */
   overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
   /* this will hide the scrollbar in internet explorers */
   -ms-overflow-style: none;
 }
@@ -17,6 +18,7 @@
   overflow: auto;
   /* this will hide the scrollbar in mozilla based browsers */
   overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
   /* this will hide the scrollbar in internet explorers */
   -ms-overflow-style: none;
 }

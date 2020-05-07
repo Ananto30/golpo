@@ -99,9 +99,18 @@ const Chat = {
       .catch(errorHandler),
 };
 
+const Activity = {
+  getAll: () =>
+    api
+      .get("/activity", getHeader())
+      .then(verifySuccessCalls)
+      .catch(errorHandler),
+};
+
 export default {
   Auth,
   User,
   Post,
   Chat,
+  Activity,
 };

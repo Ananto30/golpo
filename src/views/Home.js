@@ -7,6 +7,7 @@ import PostFeed from "../components/PostFeed";
 import ActivityFeed from "../components/ActivityFeed";
 import UserCard from "../components/UserCard";
 import client from "../client";
+import styles from "../chat.module.css";
 
 class Home extends React.Component {
   contextRef = createContext();
@@ -20,7 +21,6 @@ class Home extends React.Component {
 
   componentDidMount() {
     client.Post.getAll().then((res) => {
-      console.log(res);
       this.setState({
         posts: res.data.posts,
       });
@@ -43,35 +43,29 @@ class Home extends React.Component {
   render() {
     const { posts, userInfo } = this.state;
     return (
-      <Ref innerRef={this.contextRef}>
-        <Grid>
-          <Grid.Column width={4}>
-            <Sticky context={this.contextRef} offset={100}>
-              {!userInfo ? (
-                <Dimmer active inverted>
-                  <Loader inverted>Loading</Loader>
-                </Dimmer>
-              ) : (
-                <UserCard userInfo={userInfo} ownerProfile={true} />
-              )}
-            </Sticky>
-          </Grid.Column>
-          <Grid.Column width={8}>
-            {posts.length === 0 ? (
-              <Dimmer active inverted>
-                <Loader inverted>Loading</Loader>
-              </Dimmer>
-            ) : (
-              <PostFeed posts={posts} />
-            )}
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Sticky context={this.contextRef} offset={100}>
-              <ActivityFeed />
-            </Sticky>
-          </Grid.Column>
-        </Grid>
-      </Ref>
+      <Grid>
+        <Grid.Column width={4}>
+          {!userInfo ? (
+            <Dimmer active inverted>
+              <Loader inverted>Loading</Loader>
+            </Dimmer>
+          ) : (
+            <UserCard userInfo={userInfo} ownerProfile={true} />
+          )}
+        </Grid.Column>
+        <Grid.Column width={8} className={styles.chatmenu}>
+          {posts.length === 0 ? (
+            <Dimmer active inverted>
+              <Loader inverted>Loading</Loader>
+            </Dimmer>
+          ) : (
+            <PostFeed posts={posts} />
+          )}
+        </Grid.Column>
+        <Grid.Column width={4} className={styles.chathistory}>
+          <ActivityFeed />
+        </Grid.Column>
+      </Grid>
     );
   }
 }

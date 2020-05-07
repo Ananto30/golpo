@@ -1,4 +1,4 @@
-import { observable, action, decorate } from "mobx";
+import { observable, action, decorate, toJS } from "mobx";
 
 class CommonStore {
   loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
@@ -9,39 +9,40 @@ class CommonStore {
 
   setLoggedUser(user) {
     this.loggedUser = user;
-    localStorage.setItem("loggedUser", JSON.stringify(user));
+    window.localStorage.setItem("loggedUser", JSON.stringify(user));
   }
 
   setAuthToken(token) {
     this.authToken = token;
-    localStorage.setItem("jwtToken", token);
+    window.localStorage.setItem("jwtToken", token);
   }
 
   // private method
   setImageCache(users) {
     let newCache = {};
-    users.map((user) => {
-      user.image && (newCache[user.username] = user.image);
+    users.forEach((user) => {
+      if (user.image) newCache[user.username] = user.image;
     });
-    localStorage.setItem("usersImageCache", JSON.stringify(newCache));
+    window.localStorage.setItem("usersImageCache", JSON.stringify(newCache));
+    this.usersImageCache = newCache;
   }
 
   updateImageCache(users) {
-    if (!this.usersImageCache) {
+    if (this.usersImageCache == null) {
       this.setImageCache(users);
     } else {
       let cache = this.usersImageCache;
       users.map((user) => {
-        user.image && (cache[user.username] = user.image);
+        return user.image && (cache[user.username] = user.image);
       });
-      localStorage.setItem("usersImageCache", JSON.stringify(cache));
+      window.localStorage.setItem("usersImageCache", JSON.stringify(cache));
     }
   }
 
   addUserImageCache(user) {
     if (this.usersImageCache && user.image)
       this.usersImageCache[user.username] = user.image;
-    localStorage.setItem(
+    window.localStorage.setItem(
       "usersImageCache",
       JSON.stringify(this.usersImageCache)
     );
@@ -64,6 +65,7 @@ decorate(CommonStore, {
   setAuthToken: action,
   resetAuth: action,
   addUserImageCache: action,
+  setImageCache: action,
   updateImageCache: action,
 });
 

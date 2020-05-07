@@ -19,7 +19,6 @@ class SendMessageModal extends Component {
     e.preventDefault();
     const data = new FormData(e.target);
     client.Chat.sendMessage(this.props.user, data.get("text")).then((res) => {
-      console.log(res);
       this.setState({
         sent: true,
       });
