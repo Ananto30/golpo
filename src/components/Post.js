@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
 import CalenderMoment from "./CalenderMoment";
-import dflt from "../defaults";
+import {IMAGE_LARGE} from "../defaults";
 
 class Post extends React.Component {
   render() {
@@ -18,7 +18,7 @@ class Post extends React.Component {
           src={
             imageCache && post.author in imageCache
               ? `/images/avatar/large/${imageCache[post.author]}`
-              : dflt.image
+              : IMAGE_LARGE
           }
           avatar
           as={Link}

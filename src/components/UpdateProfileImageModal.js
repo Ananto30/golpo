@@ -3,7 +3,7 @@ import { Button, Image, Modal, Popup } from "semantic-ui-react";
 import { inject, observer } from "mobx-react";
 
 import client from "../client";
-import dflt from "../defaults";
+import { IMAGE_LARGE } from "../defaults";
 
 class UpdateProfileImageModal extends Component {
   state = { open: false, userInfo: this.props.userInfo };
@@ -62,7 +62,7 @@ class UpdateProfileImageModal extends Component {
         src={
           userInfo && userInfo.image
             ? `/images/avatar/large/${userInfo.image}`
-            : dflt.image
+            : IMAGE_LARGE
         }
         wrapped
         ui={true}

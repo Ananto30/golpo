@@ -6,7 +6,7 @@ import { inject, observer } from "mobx-react";
 
 import CalenderMoment from "./CalenderMoment";
 
-import dflt from "../defaults";
+import { IMAGE_SMALL } from "../defaults";
 
 class SComment extends React.Component {
   render() {
@@ -20,7 +20,7 @@ class SComment extends React.Component {
               ? `/images/avatar/small/${
                   this.props.commonStore.usersImageCache[comment.author]
                 }`
-              : dflt.image
+              : IMAGE_SMALL
           }
         />
         <Comment.Content>

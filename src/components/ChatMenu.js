@@ -4,7 +4,7 @@ import Moment from "react-moment";
 
 import { inject, observer } from "mobx-react";
 
-import dflt from "../defaults";
+import { IMAGE_LARGE } from "../defaults";
 
 class ChatMenu extends React.Component {
   render() {
@@ -31,7 +31,7 @@ class ChatMenu extends React.Component {
                   src={
                     imageCache && oppositeUser in imageCache
                       ? `/images/avatar/large/${imageCache[oppositeUser]}`
-                      : dflt.image
+                      : IMAGE_LARGE
                   }
                 />
                 <List.Content>

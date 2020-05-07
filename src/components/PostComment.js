@@ -23,7 +23,6 @@ const PostComment = ({ comments, handleComment }) => (
         content="Add Comment"
         labelPosition="left"
         icon="edit"
-        secondary
       />
     </Form>
   </Comment.Group>

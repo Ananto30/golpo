@@ -2,9 +2,11 @@ import React, { createContext } from "react";
 import { Grid, Dimmer, Loader, Ref, Sticky, Card } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
+import { inject, observer } from "mobx-react";
+
 import ActivityFeed from "../components/ActivityFeed";
 import client from "../client";
-import dflt from "../defaults";
+import { IMAGE_LARGE, WORK, TAGLINE } from "../defaults";
 
 class Users extends React.Component {
   contextRef = createContext();
@@ -22,32 +24,39 @@ class Users extends React.Component {
         users: res.data.users,
         isLoading: false,
       });
+      this.props.commonStore.updateImageCache(res.data.users);
     });
   }
 
   render() {
-    const { users } = this.state;
+    const { users, isLoading } = this.state;
     return (
       <Ref innerRef={this.contextRef}>
         <Grid>
           <Grid.Column width={12}>
-            <Card.Group itemsPerRow={4}>
-              {users.map((user) => (
-                <Card
-                  as={Link}
-                  to={`/profile/${user.username}`}
-                  image={
-                    user.image
-                      ? `/images/avatar/large/${user.image}`
-                      : dflt.image
-                  }
-                  header={user.username}
-                  meta={user.work ? user.work : dflt.work}
-                  description={user.tagline ? user.tagline : dflt.tagline}
-                  // extra="mama"
-                />
-              ))}
-            </Card.Group>
+            {isLoading ? (
+              <Dimmer active inverted>
+                <Loader inverted>Loading</Loader>
+              </Dimmer>
+            ) : (
+              <Card.Group itemsPerRow={4}>
+                {users.map((user) => (
+                  <Card
+                    as={Link}
+                    to={`/profile/${user.username}`}
+                    image={
+                      user.image
+                        ? `/images/avatar/large/${user.image}`
+                        : IMAGE_LARGE
+                    }
+                    header={user.username}
+                    meta={user.work ? user.work : WORK}
+                    description={user.tagline ? user.tagline : TAGLINE}
+                    // extra="mama"
+                  />
+                ))}
+              </Card.Group>
+            )}
           </Grid.Column>
           <Grid.Column width={4}>
             <Sticky context={this.contextRef} offset={100}>
@@ -60,4 +69,4 @@ class Users extends React.Component {
   }
 }
 
-export default Users;
+export default inject("commonStore")(observer(Users));

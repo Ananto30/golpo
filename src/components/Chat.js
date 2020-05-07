@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
 import CalenderMoment from "./CalenderMoment";
-import dflt from "../defaults";
+import { IMAGE_SMALL } from "../defaults";
 
 class Chat extends React.Component {
   render() {
@@ -19,7 +19,7 @@ class Chat extends React.Component {
               ? `/images/avatar/small/${
                   this.props.commonStore.usersImageCache[chat.from]
                 }`
-              : dflt.image
+              : IMAGE_SMALL
           }
         />
         <Comment.Content>

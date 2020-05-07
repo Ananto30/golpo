@@ -17,14 +17,30 @@ class CommonStore {
     localStorage.setItem("jwtToken", token);
   }
 
+  // private method
   setImageCache(users) {
     let newCache = {};
-    users.map((user) => (newCache[user.username] = user.image));
+    users.map((user) => {
+      user.image && (newCache[user.username] = user.image);
+    });
     localStorage.setItem("usersImageCache", JSON.stringify(newCache));
   }
 
+  updateImageCache(users) {
+    if (!this.usersImageCache) {
+      this.setImageCache(users);
+    } else {
+      let cache = this.usersImageCache;
+      users.map((user) => {
+        user.image && (cache[user.username] = user.image);
+      });
+      localStorage.setItem("usersImageCache", JSON.stringify(cache));
+    }
+  }
+
   addUserImageCache(user) {
-    if (this.usersImageCache && user.image) this.usersImageCache[user.username] = user.image;
+    if (this.usersImageCache && user.image)
+      this.usersImageCache[user.username] = user.image;
     localStorage.setItem(
       "usersImageCache",
       JSON.stringify(this.usersImageCache)
@@ -47,8 +63,8 @@ decorate(CommonStore, {
   setLoggedUser: action,
   setAuthToken: action,
   resetAuth: action,
-  setImageCache: action,
   addUserImageCache: action,
+  updateImageCache: action,
 });
 
 export default new CommonStore();

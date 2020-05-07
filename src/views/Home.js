@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import { Grid, Sticky, Ref, Dimmer, Loader } from "semantic-ui-react";
+
 import { inject, observer } from "mobx-react";
 
 import PostFeed from "../components/PostFeed";
@@ -29,7 +30,7 @@ class Home extends React.Component {
       usernames = [...usernamesSet];
 
       client.User.getUsersMeta(usernames).then((res) => {
-        this.props.commonStore.setImageCache(res.data.users);
+        this.props.commonStore.updateImageCache(res.data.users);
       });
     });
     client.User.getByUsername("me").then((res) => {
