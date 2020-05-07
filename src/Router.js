@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import SinglePost from "./views/SinglePost";
 import Login from "./views/login";
 import Profile from "./views/Profile";
+import Users from "./views/Users";
 
 const Router = () => {
   return (
@@ -42,6 +43,11 @@ const Router = () => {
             path={routes.message}
             exact
             render={(props) => <Chat {...props} />}
+          />
+          <Route
+            path={routes.users}
+            exact
+            render={(props) => <Users {...props} />}
           />
           <Route
             path={`${routes.post}/:id`}

@@ -1,8 +1,6 @@
-import Header from "semantic-ui-react/dist/commonjs/elements/Header";
-import Comment from "semantic-ui-react/dist/commonjs/views/Comment";
-import Form from "semantic-ui-react/dist/commonjs/collections/Form";
-import Button from "semantic-ui-react/dist/commonjs/elements/Button";
 import React from "react";
+import { Header, Comment, Form, Button } from "semantic-ui-react";
+
 import SComment from "./SComment";
 
 const PostComment = ({ comments, handleComment }) => (
@@ -20,7 +18,7 @@ const PostComment = ({ comments, handleComment }) => (
       ))}
 
     <Form id="commentText" onSubmit={handleComment} reply>
-      <Form.TextArea name="text" rows={2} required/>
+      <Form.TextArea name="text" rows={2} required />
       <Button
         content="Add Comment"
         labelPosition="left"

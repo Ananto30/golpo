@@ -1,9 +1,11 @@
 import React from "react";
 import { Item } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import CalenderMoment from "./CalenderMoment";
 
 import { inject, observer } from "mobx-react";
+
+import CalenderMoment from "./CalenderMoment";
+import dflt from "../defaults";
 
 class Post extends React.Component {
   render() {
@@ -16,7 +18,7 @@ class Post extends React.Component {
           src={
             imageCache && post.author in imageCache
               ? `/images/avatar/large/${imageCache[post.author]}`
-              : "/images/avatar/large/stevie.jpg"
+              : dflt.image
           }
           avatar
           as={Link}

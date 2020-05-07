@@ -1,9 +1,12 @@
 import React from "react";
 import { Comment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import CalenderMoment from "./CalenderMoment";
 
 import { inject, observer } from "mobx-react";
+
+import CalenderMoment from "./CalenderMoment";
+
+import dflt from "../defaults";
 
 class SComment extends React.Component {
   render() {
@@ -17,7 +20,7 @@ class SComment extends React.Component {
               ? `/images/avatar/small/${
                   this.props.commonStore.usersImageCache[comment.author]
                 }`
-              : "/images/avatar/small/stevie.jpg"
+              : dflt.image
           }
         />
         <Comment.Content>

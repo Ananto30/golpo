@@ -3,6 +3,7 @@ import { Button, Image, Modal, Popup } from "semantic-ui-react";
 import { inject, observer } from "mobx-react";
 
 import client from "../client";
+import dflt from "../defaults";
 
 class UpdateProfileImageModal extends Component {
   state = { open: false, userInfo: this.props.userInfo };
@@ -58,9 +59,11 @@ class UpdateProfileImageModal extends Component {
     const { open, dimmer, userInfo } = this.state;
     const image = (
       <Image
-        src={`/images/avatar/large/${
-          userInfo && userInfo.image ? userInfo.image : "elyse.png"
-        }`}
+        src={
+          userInfo && userInfo.image
+            ? `/images/avatar/large/${userInfo.image}`
+            : dflt.image
+        }
         wrapped
         ui={true}
       />

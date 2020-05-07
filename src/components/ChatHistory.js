@@ -1,8 +1,7 @@
-import { Header, Comment, Form, Button } from "semantic-ui-react";
 import React from "react";
-import Chat from "./Chat";
+import { Header, Comment, Form, Button } from "semantic-ui-react";
 
-import client from "../client.js";
+import Chat from "./Chat";
 
 class ChatHistory extends React.Component {
   render() {

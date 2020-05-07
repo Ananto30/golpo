@@ -36,6 +36,8 @@ const Auth = {
 };
 
 const User = {
+  getAllUsers: () =>
+    api.get("/user", getHeader()).then(verifySuccessCalls).catch(errorHandler),
   getByUsername: (username) =>
     api
       .get(`/user/${username}`, getHeader())

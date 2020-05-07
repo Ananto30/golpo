@@ -54,7 +54,13 @@ class MainNavbar extends React.Component {
             as={Link}
             to={routes.message}
           />
-          {/* <Menu.Item name="friends" /> */}
+          <Menu.Item
+            name="users"
+            active={activeItem === "users"}
+            onClick={this.handleMenuClick}
+            as={Link}
+            to={routes.users}
+          />
           <Menu.Menu position="right">
             <Menu.Item>
               <Input icon="search" placeholder="Search..." />
