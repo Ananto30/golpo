@@ -1,23 +1,27 @@
-import Header from "semantic-ui-react/dist/commonjs/elements/Header";
-import Comment from "semantic-ui-react/dist/commonjs/views/Comment";
-import Form from "semantic-ui-react/dist/commonjs/collections/Form";
-import Button from "semantic-ui-react/dist/commonjs/elements/Button";
+import { Header, Comment, Form, Button } from "semantic-ui-react";
 import React from "react";
 import Chat from "./Chat";
 
-const ChatHistory = ({ user, history }) => (
-  <Comment.Group>
-    <Header as="h3" dividing>
-      Chat with {user}
-    </Header>
+import client from "../client.js";
 
-    {history ? history.map((chat) => <Chat chat={chat} />) : null}
+class ChatHistory extends React.Component {
+  render() {
+    const { user, history, handleChat } = this.props;
+    return (
+      <Comment.Group>
+        <Header as="h3" dividing>
+          Chat with {user}
+        </Header>
 
-    <Form reply>
-      <Form.TextArea />
-      <Button content="Add Reply" labelPosition="left" icon="edit" primary />
-    </Form>
-  </Comment.Group>
-);
+        {history ? history.map((chat) => <Chat chat={chat} />) : null}
+
+        <Form id="chatText" onSubmit={handleChat} reply>
+          <Form.TextArea name="text" />
+          <Button content="Add Reply" labelPosition="left" icon="edit" />
+        </Form>
+      </Comment.Group>
+    );
+  }
+}
 
 export default ChatHistory;

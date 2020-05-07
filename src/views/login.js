@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Checkbox, Form, Grid, Message } from "semantic-ui-react";
 
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import client from "../client";
 import routes from "../routes";
@@ -11,9 +11,11 @@ class Login extends React.Component {
     super(props);
     this.state = {
       error: null,
+      requestInit: false,
     };
   }
   handleLogin = (e) => {
+    this.setState({ requestInit: true });
     e.preventDefault();
     const data = new FormData(e.target);
     client.Auth.login(data.get("username"), data.get("password"))
@@ -28,15 +30,22 @@ class Login extends React.Component {
       })
       .catch((err) => {
         if (err.response.data) {
-          this.setState({ error: err.response.data.errors });
+          this.setState({
+            error: err.response.data.errors,
+            requestInit: false,
+          });
         }
       });
   };
   render() {
-    const { error } = this.state;
+    const { error, requestInit } = this.state;
+    const loggedUser = this.props.commonStore.loggedUser;
+
+    if (loggedUser) return <Redirect to={routes.home} />;
+
     return (
       <Grid centered>
-        <Grid.Column width={4} style={{paddingTop: "10%"}}>
+        <Grid.Column width={4} style={{ paddingTop: "10%" }}>
           <Form onSubmit={this.handleLogin} error={error}>
             {error && (
               <Message
@@ -60,7 +69,9 @@ class Login extends React.Component {
               />
             </Form.Field>
 
-            <Button type="submit">Submit</Button>
+            <Button type="submit" disabled={requestInit} loading={requestInit}>
+              Submit
+            </Button>
           </Form>
         </Grid.Column>
       </Grid>

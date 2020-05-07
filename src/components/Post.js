@@ -8,16 +8,14 @@ import { inject, observer } from "mobx-react";
 class Post extends React.Component {
   render() {
     const post = this.props.post;
+    const imageCache = this.props.commonStore.usersImageCache;
     return (
       <Item>
         <Item.Image
           size="tiny"
           src={
-            this.props.commonStore.usersImageCache &&
-            post.author in this.props.commonStore.usersImageCache
-              ? `/images/avatar/large/${
-                  this.props.commonStore.usersImageCache[post.author]
-                }`
+            imageCache && post.author in imageCache
+              ? `/images/avatar/large/${imageCache[post.author]}`
               : "/images/avatar/large/stevie.jpg"
           }
           avatar

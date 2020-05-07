@@ -66,13 +66,25 @@ const Post = {
   createPost: (text) =>
     api.post("/post", { text: text }, getHeader()).catch(errorHandler),
   createComment: (postId, text) =>
-    api.post(`/post/${postId}/comment`, { text: text }, getHeader()).catch(errorHandler),
+    api
+      .post(`/post/${postId}/comment`, { text: text }, getHeader())
+      .catch(errorHandler),
 };
 
 const Chat = {
   getChats: () => api.get("/chat", getHeader()).catch(errorHandler),
   getChatsByReceiver: (receiver) =>
     api.get(`/chat/${receiver}`, getHeader()).catch(errorHandler),
+  sendChat: (receiver, text) =>
+    api
+      .post(
+        `/chat/${receiver}`,
+        {
+          text: text,
+        },
+        getHeader()
+      )
+      .catch(errorHandler),
 };
 
 export default {

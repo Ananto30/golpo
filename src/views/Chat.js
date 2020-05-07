@@ -12,38 +12,66 @@ class Chat extends React.Component {
     activeItem: null,
     chats: [],
     chatHistory: [],
-    isLoading: true,
+    menuLoading: true,
+    historyLoading: false,
   };
+
   componentDidMount() {
     client.Chat.getChats().then((res) => {
       this.setState({
         chats: res.data.chats,
-        isLoading: false,
+        menuLoading: false,
       });
     });
   }
-  componentDidUpdate() {}
+
   handleSelect = (e, { name }) => {
-    this.setState({ activeItem: name });
+    this.setState({ activeItem: name, historyLoading: true });
     client.Chat.getChatsByReceiver(name).then((res) => {
       this.setState({
         chatHistory: res.data.chats,
+        historyLoading: false,
       });
     });
   };
 
+  handleChat = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    client.Chat.sendChat(this.state.activeItem, data.get("text")).then(
+      (res) => {
+        let chat = {
+          from: this.props.commonStore.loggedUser.username,
+          text: data.get("text"),
+          date: new Date(),
+        };
+        this.setState((prev) => ({
+          chatHistory: [...prev.chatHistory, chat],
+        }));
+        // TODO: this seems a bit shitty
+        document.getElementById("chatText").reset();
+      }
+    );
+  };
+
   render() {
-    const { activeItem, chats, chatHistory, isLoading } = this.state;
+    const {
+      activeItem,
+      chats,
+      chatHistory,
+      menuLoading,
+      historyLoading,
+    } = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
     return (
       <Grid>
         <Grid.Column width={4}>
-          {isLoading ? (
+          {menuLoading ? (
             <Dimmer active inverted>
               <Loader inverted>Loading</Loader>
             </Dimmer>
           ) : chats.length === 0 ? (
-            "Can't you talk?! Go to someones profile and start talking :|"
+            "Can't you talk?! Go to someone's profile and start talking :|"
           ) : (
             <ChatMenu
               activeItem={activeItem}
@@ -53,9 +81,19 @@ class Chat extends React.Component {
             />
           )}
         </Grid.Column>
-        <Grid.Column width={12}>
-          {activeItem && (
-            <ChatHistory user={activeItem} history={chatHistory} />
+        <Grid.Column width={10}>
+          {historyLoading ? (
+            <Dimmer active inverted>
+              <Loader inverted>Loading</Loader>
+            </Dimmer>
+          ) : (
+            activeItem && (
+              <ChatHistory
+                user={activeItem}
+                history={chatHistory}
+                handleChat={this.handleChat}
+              />
+            )
           )}
         </Grid.Column>
       </Grid>

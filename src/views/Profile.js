@@ -96,7 +96,6 @@ class Profile extends React.Component {
                   }
                   labelPosition="left"
                   icon="edit"
-                  secondary
                 />
               </Form>
             )}

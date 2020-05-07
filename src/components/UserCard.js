@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Icon, Image, Button } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 
 import SendMessageModal from "./SendMessageModal";
 import UpdateProfileModal from "./UpdateProfileModal";
@@ -12,7 +12,7 @@ const UserCard = ({ userInfo, ownerProfile }) => {
   };
   return (
     <Card>
-      <UpdateProfileImageModal userInfo={uInfo} ownerProfile={ownerProfile}/>
+      <UpdateProfileImageModal userInfo={uInfo} ownerProfile={ownerProfile} />
       <Card.Content>
         <Card.Header>{uInfo.username}</Card.Header>
         <Card.Meta>

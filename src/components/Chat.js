@@ -28,10 +28,11 @@ class Chat extends React.Component {
             <div>
               <CalenderMoment time={chat.date} />
             </div>
-
-            <div>
-              <Icon name="check" size="tiny" />
-            </div>
+            {chat.seen && (
+              <div>
+                <Icon name="check" size="tiny" />
+              </div>
+            )}
           </Comment.Metadata>
           <Comment.Text>{chat.text}</Comment.Text>
 

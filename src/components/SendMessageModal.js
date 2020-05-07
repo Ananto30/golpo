@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Header, Image, Modal, Form } from "semantic-ui-react";
+import { Button, Modal, Form } from "semantic-ui-react";
 
 class SendMessageModal extends Component {
   state = { open: false };

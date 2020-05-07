@@ -1,11 +1,11 @@
 import React, { createContext } from "react";
 import { Grid, Sticky, Ref, Dimmer, Loader } from "semantic-ui-react";
+import { inject, observer } from "mobx-react";
+
 import PostFeed from "../components/PostFeed";
 import ActivityFeed from "../components/ActivityFeed";
 import UserCard from "../components/UserCard";
 import client from "../client";
-
-import { inject, observer } from "mobx-react";
 
 class Home extends React.Component {
   contextRef = createContext();
@@ -16,12 +16,14 @@ class Home extends React.Component {
       userInfo: null,
     };
   }
+
   componentDidMount() {
     client.Post.getAll().then((res) => {
+      console.log(res);
       this.setState({
         posts: res.data.posts,
       });
-      
+
       let usernames = res.data.posts.map(({ author }) => author);
       const usernamesSet = new Set(usernames);
       usernames = [...usernamesSet];
@@ -36,7 +38,7 @@ class Home extends React.Component {
       });
     });
   }
-  componentDidUpdate() {}
+
   render() {
     const { posts, userInfo } = this.state;
     return (
