@@ -64,7 +64,7 @@ const Router = () => {
           />
         </PrivateRoute>
 
-        <Redirect to={routes.home} />
+        {/* <Redirect to={routes.home} /> */}
       </Switch>
     </BrowserRouter>
   );

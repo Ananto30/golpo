@@ -31,10 +31,12 @@ class CommonStore {
     if (this.usersImageCache == null) {
       this.setImageCache(users);
     } else {
+      // copy this because we dont want to read localstorage everytime in the loop below
       let cache = this.usersImageCache;
       users.map((user) => {
         return user.image && (cache[user.username] = user.image);
       });
+      this.usersImageCache = cache;
       window.localStorage.setItem("usersImageCache", JSON.stringify(cache));
     }
   }
