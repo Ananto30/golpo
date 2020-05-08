@@ -7,7 +7,7 @@ import route from "../routes.js";
 
 const PrivateRoute = (props) => (
   <Fragment>
-    {props.commonStore.authToken != null ? (
+    {props.commonStore.authToken !== null ? (
       props.children
     ) : (
       <Redirect to={route.login} />

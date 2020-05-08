@@ -10,7 +10,7 @@ const PostFeed = ({ posts }) => (
         return new Date(b.date) - new Date(a.date);
       })
       .map((post) => (
-        <Post post={post} />
+        <Post post={post} key={post._id} />
       ))}
   </Item.Group>
 );

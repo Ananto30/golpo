@@ -1,17 +1,20 @@
 import * as React from "react";
 import { Grid, Item, Dimmer, Loader } from "semantic-ui-react";
-import ActivityFeed from "../components/ActivityFeed";
 import PostComment from "../components/PostComment";
 import { withRouter } from "react-router-dom";
 
 import client from "../client.js";
 import Post from "../components/Post";
+import Loading from "../components/Loaders/Loading";
+import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
+
+import styles from "../chat.module.css";
 
 class SinglePost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      post: {},
+      post: null,
       postComments: [],
     };
   }
@@ -50,28 +53,19 @@ class SinglePost extends React.Component {
   render() {
     const { post, postComments } = this.state;
     return (
-      <Grid>
-        <Grid.Column width={12}>
-          {!post ? (
-            <Dimmer active inverted>
-              <Loader inverted>Loading</Loader>
-            </Dimmer>
-          ) : (
-            <>
-              <Item.Group>
-                <Post post={post} />
-              </Item.Group>
-              <PostComment
-                comments={postComments}
-                handleComment={this.handleComment}
-              />
-            </>
-          )}
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <ActivityFeed />
-        </Grid.Column>
-      </Grid>
+      <Grid.Column width={12} className={styles.chatmenu}>
+        <Loading loading={!post} component={ItemPlaceholder}>
+          <>
+            <Item.Group>
+              <Post post={post} />
+            </Item.Group>
+            <PostComment
+              comments={postComments}
+              handleComment={this.handleComment}
+            />
+          </>
+        </Loading>
+      </Grid.Column>
     );
   }
 }

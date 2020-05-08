@@ -40,7 +40,11 @@ class CommonStore {
   }
 
   addUserImageCache(user) {
-    if (this.usersImageCache && user.image)
+    if (
+      this.usersImageCache &&
+      user.image &&
+      this.usersImageCache[user.username] !== user.image
+    )
       this.usersImageCache[user.username] = user.image;
     window.localStorage.setItem(
       "usersImageCache",
@@ -49,8 +53,8 @@ class CommonStore {
   }
 
   resetAuth() {
-    this.loggedUser = undefined;
-    this.authToken = undefined;
+    this.loggedUser = null;
+    this.authToken = null;
     window.localStorage.removeItem("jwtToken");
     window.localStorage.removeItem("loggedUser");
   }

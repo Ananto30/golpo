@@ -7,6 +7,9 @@ import ChatMenu from "../components/ChatMenu";
 import ChatHistory from "../components/ChatHistory";
 import client from "../client";
 import styles from "../chat.module.css";
+import Loading from "../components/Loaders/Loading";
+import ActivityPlaceholder from "../components/Loaders/ActivityPlaceholder";
+import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
 
 class Chat extends React.Component {
   contextRef = createContext();
@@ -56,7 +59,6 @@ class Chat extends React.Component {
     );
   };
 
-
   render() {
     const {
       activeItem,
@@ -67,14 +69,10 @@ class Chat extends React.Component {
     } = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
     return (
-      <Ref innerRef={this.contextRef}>
-        <Grid>
-          <Grid.Column width={4} className={styles.chatmenu}>
-            {menuLoading ? (
-              <Dimmer active inverted>
-                <Loader inverted>Loading</Loader>
-              </Dimmer>
-            ) : chats.length === 0 ? (
+      <Grid>
+        <Grid.Column width={4} className={styles.chatmenu}>
+          <Loading loading={menuLoading} component={ActivityPlaceholder}>
+            {chats.length === 0 ? (
               "Can't you talk?! Go to someone's profile and start talking :|"
             ) : (
               <ChatMenu
@@ -84,40 +82,35 @@ class Chat extends React.Component {
                 loggedUser={loggedUser}
               />
             )}
-          </Grid.Column>
-          <Grid.Column width={10}>
-            {historyLoading ? (
-              <Dimmer active inverted>
-                <Loader inverted>Loading</Loader>
-              </Dimmer>
-            ) : (
-              activeItem && (
-                <>
-                  <ChatHistory
-                    user={activeItem}
-                    history={chatHistory}
-                    handleChat={this.handleChat}
-                    
+          </Loading>
+        </Grid.Column>
+        <Grid.Column width={10}>
+          <Loading loading={historyLoading} component={ItemPlaceholder}>
+            {activeItem && (
+              <>
+                <ChatHistory
+                  user={activeItem}
+                  history={chatHistory}
+                  handleChat={this.handleChat}
+                />
+                <Form
+                  id="chatText"
+                  onSubmit={this.handleChat}
+                  reply
+                  style={{ paddingTop: "20px" }}
+                >
+                  <Form.TextArea name="text" />
+                  <Button
+                    content="Add Reply"
+                    labelPosition="left"
+                    icon="edit"
                   />
-                  <Form
-                    id="chatText"
-                    onSubmit={this.handleChat}
-                    reply
-                    style={{ paddingTop: "20px" }}
-                  >
-                    <Form.TextArea name="text" />
-                    <Button
-                      content="Add Reply"
-                      labelPosition="left"
-                      icon="edit"
-                    />
-                  </Form>
-                </>
-              )
+                </Form>
+              </>
             )}
-          </Grid.Column>
-        </Grid>
-      </Ref>
+          </Loading>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

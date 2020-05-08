@@ -1,21 +1,16 @@
 import React, { createContext } from "react";
-import {
-  Grid,
-  Sticky,
-  Ref,
-  Dimmer,
-  Loader,
-  Button,
-  Form,
-  Header,
-} from "semantic-ui-react";
+import { Grid, Dimmer, Loader, Button, Form, Header } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
 import PostFeed from "../components/PostFeed";
-import ActivityFeed from "../components/ActivityFeed";
 import UserCard from "../components/UserCard";
 import client from "../client";
+
+import styles from "../chat.module.css";
+import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
+import Loading from "../components/Loaders/Loading";
+import CardPlaceholder from "../components/Loaders/CardPlaceholder";
 
 class Profile extends React.Component {
   contextRef = createContext();
@@ -49,10 +44,10 @@ class Profile extends React.Component {
       this.setState({
         userInfo: res.data,
       });
-
       this.props.commonStore.addUserImageCache(res.data);
     });
   }
+
   handlePost = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -66,28 +61,23 @@ class Profile extends React.Component {
       document.getElementById("postText").reset();
     });
   };
+
   render() {
     const { posts, userInfo, isLoading } = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
     const ownerProfile = userInfo && loggedUser.username === userInfo.username;
     return (
-      <Ref innerRef={this.contextRef}>
-        <Grid>
-          <Grid.Column width={4}>
-            <Sticky context={this.contextRef} offset={100}>
-              {!userInfo ? (
-                <Dimmer active inverted>
-                  <Loader inverted>Loading</Loader>
-                </Dimmer>
-              ) : (
-                <UserCard userInfo={userInfo} ownerProfile={ownerProfile} />
-              )}
-            </Sticky>
-          </Grid.Column>
-          <Grid.Column width={8}>
+      <>
+        <Grid.Column width={4}>
+          <Loading loading={!userInfo} component={CardPlaceholder}>
+            <UserCard userInfo={userInfo} ownerProfile={ownerProfile} />
+          </Loading>
+        </Grid.Column>
+        <Grid.Column width={8} className={styles.chatmenu}>
+          <Loading loading={isLoading} component={ItemPlaceholder}>
             {ownerProfile && (
               <Form id="postText" onSubmit={this.handlePost}>
-                <Form.TextArea name="text" required rows={4}  />
+                <Form.TextArea name="text" required rows={4} />
                 <Button
                   content={
                     this.shareLines[
@@ -100,25 +90,16 @@ class Profile extends React.Component {
               </Form>
             )}
 
-            {isLoading ? (
-              <Dimmer active inverted>
-                <Loader inverted>Loading</Loader>
-              </Dimmer>
-            ) : posts.length === 0 ? (
+            {posts.length === 0 ? (
               <Header as="h2" icon textAlign="center">
                 This one doesn't like to share anything!
               </Header>
             ) : (
               <PostFeed posts={posts} />
             )}
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Sticky context={this.contextRef} offset={100}>
-              <ActivityFeed />
-            </Sticky>
-          </Grid.Column>
-        </Grid>
-      </Ref>
+          </Loading>
+        </Grid.Column>
+      </>
     );
   }
 }

@@ -11,48 +11,56 @@ import Login from "./views/login";
 import Profile from "./views/Profile";
 import Users from "./views/Users";
 
+import ActivityLayout from "./layouts/ActivityLayout";
+
 const Router = () => {
   return (
     <BrowserRouter>
       <MainNavbar />
-
       <Switch>
         <Route
           path={routes.login}
           exact
           render={(props) => <Login {...props} />}
         />
+
         <PrivateRoute>
           <Route path="/" exact render={(props) => <Home {...props} />} />
-          <Route
+
+          <ActivityLayout
             path={routes.home}
             exact
-            render={(props) => <Home {...props} />}
+            component={Home}
+            // render={(props) => <Home {...props} />}
           />
-          <Route
+          <ActivityLayout
             path={routes.profile}
             exact
-            render={(props) => <Profile {...props} />}
+            component={Profile}
+            // render={(props) => <Profile {...props} />}
           />
-          <Route
+          <ActivityLayout
             path={`${routes.profile}/:id`}
             exact
-            render={(props) => <Profile {...props} />}
+            component={Profile}
+            // render={(props) => <Profile {...props} />}
           />
           <Route
             path={routes.message}
             exact
             render={(props) => <Chat {...props} />}
           />
-          <Route
+          <ActivityLayout
             path={routes.users}
             exact
-            render={(props) => <Users {...props} />}
+            component={Users}
+            // render={(props) => <Users {...props} />}
           />
-          <Route
+          <ActivityLayout
             path={`${routes.post}/:id`}
             exact
-            render={(props) => <SinglePost {...props} />}
+            component={SinglePost}
+            // render={(props) => <SinglePost {...props} />}
           />
         </PrivateRoute>
 
