@@ -1,14 +1,16 @@
 import React from "react";
 import Feed from "semantic-ui-react/dist/commonjs/views/Feed";
-import {IMAGE_LARGE} from "../../defaults";
+import { IMAGE_LARGE } from "../../defaults";
 import Moment from "react-moment";
 
-import {inject, observer} from "mobx-react";
+import { inject, observer } from "mobx-react";
 
-const SingleFeed = ({activity, ...props}) => {
+import styles from "../../chat.module.css";
+
+const SingleFeed = ({ activity, ...props }) => {
   const imageCache = props.commonStore.usersImageCache;
   return (
-    <Feed.Event key={activity._id}>
+    <Feed.Event className={styles.itemslideup}>
       <Feed.Label
         image={
           imageCache && activity.username in imageCache
@@ -18,7 +20,7 @@ const SingleFeed = ({activity, ...props}) => {
       />
       <Feed.Content>
         <Feed.Date>
-          <Moment date={activity.date} fromNow/>
+          <Moment date={activity.date} fromNow />
         </Feed.Date>
         <Feed.Summary>{`${activity.username} ${activity.summary}`}</Feed.Summary>
         <Feed.Extra text>{activity.extra_text}</Feed.Extra>
@@ -31,7 +33,7 @@ const SingleFeed = ({activity, ...props}) => {
         />
       </Feed.Content>
     </Feed.Event>
-  )
-}
+  );
+};
 
 export default inject("commonStore")(observer(SingleFeed));

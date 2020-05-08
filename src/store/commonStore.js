@@ -1,5 +1,7 @@
 import { observable, action, decorate, toJS } from "mobx";
 
+import StartSocketServer from "../socketClient";
+
 class CommonStore {
   loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
   authToken = window.localStorage.getItem("jwtToken");
@@ -15,6 +17,7 @@ class CommonStore {
   setAuthToken(token) {
     this.authToken = token;
     window.localStorage.setItem("jwtToken", token);
+    StartSocketServer()
   }
 
   // private method

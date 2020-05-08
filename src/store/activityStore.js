@@ -9,6 +9,10 @@ class ActivityStore {
     this.activities = activities;
   }
 
+  addActivity(activity) {
+    this.activities.push(activity);
+  }
+
   loadActivities() {
     this.isLoadingActivities = true;
     client.Activity.getAll()
@@ -24,6 +28,7 @@ decorate(ActivityStore, {
   isLoadingActivities: observable,
 
   setActivites: action,
+  addActivity: action,
   loadActivities: action,
 });
 

@@ -9,9 +9,9 @@ const ActivityLayout = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) => (
-      <Grid>
+      <Grid stackable>
         <Component {...props} />
-        <Grid.Column width={4} className={styles.chathistory}>
+        <Grid.Column width={4} className={styles.chathistory} only='large screen'>
           <ActivityFeed />
         </Grid.Column>
       </Grid>

@@ -39,9 +39,9 @@ class Login extends React.Component {
   };
   render() {
     const { error, requestInit } = this.state;
-    const loggedUser = this.props.commonStore.loggedUser;
+    const authToken = this.props.commonStore.authToken;
 
-    if (loggedUser) return <Redirect to={routes.home} />;
+    if (authToken) return <Redirect to={routes.home} />;
 
     return (
       <Grid centered>

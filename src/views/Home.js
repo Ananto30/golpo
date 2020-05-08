@@ -46,12 +46,12 @@ class Home extends React.Component {
     const { posts, userInfo } = this.state;
     return (
       <>
-        <Grid.Column width={4}>
+        <Grid.Column width={4} only='large screen'>
           <Loading loading={!userInfo} component={CardPlaceholder}>
             <UserCard userInfo={userInfo} ownerProfile={true} />
           </Loading>
         </Grid.Column>
-        <Grid.Column width={8} className={styles.chatmenu}>
+        <Grid.Column width={8} className={styles.chatmenu} mobile={16} largeScreen={8}>
           <Loading loading={posts.length === 0} component={ItemPlaceholder} />
           <PostFeed posts={posts} />
         </Grid.Column>
