@@ -12,6 +12,7 @@ import Profile from "./views/Profile";
 import Users from "./views/Users";
 
 import ActivityLayout from "./layouts/ActivityLayout";
+import GoogleLogin from "./views/GoogleLogin";
 
 const Router = () => {
   return (
@@ -22,6 +23,12 @@ const Router = () => {
           path={routes.login}
           exact
           render={(props) => <Login {...props} />}
+        />
+
+        <Route
+          path="/google/auth/:email"
+          exact
+          render={(props) => <GoogleLogin {...props} />}
         />
 
         <PrivateRoute>
@@ -48,7 +55,8 @@ const Router = () => {
           <Route
             path={routes.message}
             exact
-            render={(props) => <Chat {...props} />}
+            component={Chat}
+            // render={(props) => <Chat {...props} />}
           />
           <ActivityLayout
             path={routes.users}
@@ -64,7 +72,7 @@ const Router = () => {
           />
         </PrivateRoute>
 
-        <Redirect to={routes.home} />
+        {/* <Redirect to={routes.home} /> */}
       </Switch>
     </BrowserRouter>
   );

@@ -3,12 +3,19 @@ import React from "react";
 import { Container } from "semantic-ui-react";
 import Router from "./Router";
 
-function App() {
-  return (
-    <Container style={{ maxHeight: "90vh" }}>
-      <Router />
-    </Container>
-  );
+import socket from "./socketClient";
+
+class App extends React.Component {
+  componentWillMount() {
+    socket.StartSocketServer();
+  }
+  render() {
+    return (
+      <Container style={{ maxHeight: "90vh" }}>
+        <Router />
+      </Container>
+    );
+  }
 }
 
 export default App;

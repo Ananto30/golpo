@@ -6,9 +6,11 @@ import "semantic-ui-css/semantic.min.css";
 import { Provider } from "mobx-react";
 
 import commonStore from "./store/commonStore";
+import activityStore from "./store/activityStore";
 
 const stores = {
   commonStore,
+  activityStore,
 };
 
 // For easier debugging

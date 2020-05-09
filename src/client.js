@@ -17,8 +17,10 @@ const getHeader = () => {
 };
 
 const errorHandler = (err) => {
-  console.log(err);
-  if (err.response.status === 401 || err.response.status === 403) {
+  if (
+    err.response &&
+    (err.response.status === 401 || err.response.status === 403)
+  ) {
     commonStore.resetAuth();
   }
 };
@@ -33,16 +35,24 @@ const Auth = {
       username: username,
       password: password,
     }),
+  getGoogleToken: (email) =>
+    api.get(`/auth/login/googletoken/${email}`),
+  googleLogin: (email, token) =>
+    api.post(
+      "/auth/login/google/success",
+      { email: email },
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    ),
 };
 
 const User = {
-  getAllUsers: () =>
-    api.get("/user", getHeader()).then(verifySuccessCalls).catch(errorHandler),
+  getAllUsers: () => api.get("/user", getHeader()).catch(errorHandler),
   getByUsername: (username) =>
-    api
-      .get(`/user/${username}`, getHeader())
-      .then(verifySuccessCalls)
-      .catch(errorHandler),
+    api.get(`/user/${username}`, getHeader()).catch(errorHandler),
   updateMeta: (meta) =>
     api.post("/user/me/update", meta, getHeader()).catch(errorHandler),
 
@@ -55,13 +65,11 @@ const User = {
           Authorization: "Bearer " + commonStore.authToken,
         },
       })
-      .then(verifySuccessCalls)
       .catch(errorHandler),
 };
 
 const Post = {
-  getAll: () =>
-    api.get("/post", getHeader()).then(verifySuccessCalls).catch(errorHandler),
+  getAll: () => api.get("/post", getHeader()).catch(errorHandler),
   getById: (id) => api.get(`/post/${id}`, getHeader()).catch(errorHandler),
   getByUsername: (username) =>
     api.get(`/post/user/${username}`, getHeader()).catch(errorHandler),
@@ -100,11 +108,7 @@ const Chat = {
 };
 
 const Activity = {
-  getAll: () =>
-    api
-      .get("/activity", getHeader())
-      .then(verifySuccessCalls)
-      .catch(errorHandler),
+  getAll: () => api.get("/activity", getHeader()).catch(errorHandler),
 };
 
 export default {

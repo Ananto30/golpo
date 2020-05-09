@@ -28,24 +28,28 @@ class Profile extends React.Component {
       isLoading: true,
     };
   }
-  componentDidMount() {
-    const { match } = this.props;
-    let username = match.params.id;
-    if (username == null) {
-      username = "me";
-    }
-    client.Post.getByUsername(username).then((res) => {
+  async componentDidMount() {
+    try {
+      const { match } = this.props;
+      let username = match.params.id;
+      if (username == null) {
+        username = "me";
+      }
+
+      let res = await client.Post.getByUsername(username);
       this.setState({
         posts: res.data.posts,
         isLoading: false,
       });
-    });
-    client.User.getByUsername(username).then((res) => {
+
+      res = await client.User.getByUsername(username);
       this.setState({
         userInfo: res.data,
       });
       this.props.commonStore.addUserImageCache(res.data);
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   handlePost = (e) => {

@@ -4,5 +4,5 @@ export default {
   profile: "/profile",
   message: "/message",
   post: "/post",
-  users: "/users"
+  users: "/users",
 };

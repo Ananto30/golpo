@@ -1,10 +1,20 @@
 import React from "react";
-import { Button, Checkbox, Form, Grid, Message } from "semantic-ui-react";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Grid,
+  Message,
+  Icon,
+  Divider,
+} from "semantic-ui-react";
 
 import { withRouter, Redirect } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import client from "../client";
 import routes from "../routes";
+
+import socket from "../socketClient";
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,6 +23,9 @@ class Login extends React.Component {
       error: null,
       requestInit: false,
     };
+  }
+  componentWillMount() {
+    socket.StartSocketServer();
   }
   handleLogin = (e) => {
     this.setState({ requestInit: true });
@@ -29,7 +42,8 @@ class Login extends React.Component {
         }
       })
       .catch((err) => {
-        if (err.response.data) {
+        console.log(err);
+        if (err.response && err.response.data) {
           this.setState({
             error: err.response.data.errors,
             requestInit: false,
@@ -37,15 +51,22 @@ class Login extends React.Component {
         }
       });
   };
+  handleGoogleLogin = (e) => {
+    this.setState({ requestInit: true });
+  };
   render() {
     const { error, requestInit } = this.state;
-    const loggedUser = this.props.commonStore.loggedUser;
+    const authToken = this.props.commonStore.authToken;
 
-    if (loggedUser) return <Redirect to={routes.home} />;
+    if (authToken) return <Redirect to={routes.home} />;
 
     return (
       <Grid centered>
-        <Grid.Column width={4} style={{ paddingTop: "10%" }}>
+        <Grid.Column
+          width={4}
+          style={{ paddingTop: "10%" }}
+          verticalAlign="middle"
+        >
           <Form onSubmit={this.handleLogin} error={error}>
             {error && (
               <Message
@@ -73,6 +94,18 @@ class Login extends React.Component {
               Submit
             </Button>
           </Form>
+
+          <Divider horizontal>Or</Divider>
+
+          <Button
+            color="google plus"
+            href="http://localhost:7000/auth/social/google"
+            disabled={requestInit}
+            loading={requestInit}
+            onClick={this.handleGoogleLogin}
+          >
+            <Icon name="google" /> Login with Google
+          </Button>
         </Grid.Column>
       </Grid>
     );

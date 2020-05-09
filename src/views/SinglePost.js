@@ -19,11 +19,11 @@ class SinglePost extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { match } = this.props;
     const postId = match.params.id;
-
-    client.Post.getById(postId).then((res) => {
+    try {
+      let res = await client.Post.getById(postId);
       this.setState({
         post: {
           id: res.data._id,
@@ -33,7 +33,9 @@ class SinglePost extends React.Component {
         },
         postComments: res.data.comments,
       });
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   handleComment = (e) => {

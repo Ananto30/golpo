@@ -1,5 +1,7 @@
 import { observable, action, decorate, toJS } from "mobx";
 
+import socket from "../socketClient";
+
 class CommonStore {
   loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
   authToken = window.localStorage.getItem("jwtToken");
@@ -15,6 +17,7 @@ class CommonStore {
   setAuthToken(token) {
     this.authToken = token;
     window.localStorage.setItem("jwtToken", token);
+    socket.StartSocketServer()
   }
 
   // private method
@@ -31,10 +34,12 @@ class CommonStore {
     if (this.usersImageCache == null) {
       this.setImageCache(users);
     } else {
+      // copy this because we dont want to read localstorage everytime in the loop below
       let cache = this.usersImageCache;
       users.map((user) => {
         return user.image && (cache[user.username] = user.image);
       });
+      this.usersImageCache = cache;
       window.localStorage.setItem("usersImageCache", JSON.stringify(cache));
     }
   }

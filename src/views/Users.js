@@ -22,14 +22,17 @@ class Users extends React.Component {
     };
   }
 
-  componentDidMount() {
-    client.User.getAllUsers().then((res) => {
+  async componentDidMount() {
+    try {
+      let res = client.User.getAllUsers();
       this.setState({
         users: res.data.users,
         isLoading: false,
       });
       this.props.commonStore.updateImageCache(res.data.users);
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
