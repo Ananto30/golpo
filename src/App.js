@@ -3,11 +3,11 @@ import React from "react";
 import { Container } from "semantic-ui-react";
 import Router from "./Router";
 
-import StartSocketServer from "./socketClient";
+import socket from "./socketClient";
 
 class App extends React.Component {
-  componentDidMount() {
-    StartSocketServer();
+  componentWillMount() {
+    socket.StartSocketServer();
   }
   render() {
     return (

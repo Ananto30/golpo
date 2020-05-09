@@ -8,7 +8,8 @@ import routes from "../routes";
 
 class MainNavbar extends React.Component {
   state = {
-    activeItem: this.props.location.pathname.substring(1),
+    // activeItem: this.props.location.pathname.substring(1),
+    activeItem: window.location.pathname,
   };
 
   handleMenuClick = (e, { name }) => {
@@ -32,7 +33,6 @@ class MainNavbar extends React.Component {
         <Menu
           secondary
           style={{ height: "100px", border: "none", backgroundColor: "#fff" }}
-          
         >
           <Menu.Item
             name="home"
@@ -73,7 +73,7 @@ class MainNavbar extends React.Component {
             )}
           </Menu.Menu>
         </Menu>
-       </Sticky>
+      </Sticky>
     );
   }
 }

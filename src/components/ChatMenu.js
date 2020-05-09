@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, List } from "semantic-ui-react";
+import { Image, List, Label } from "semantic-ui-react";
 import Moment from "react-moment";
 
 import { inject, observer } from "mobx-react";
@@ -41,6 +41,12 @@ class ChatMenu extends React.Component {
                     {" @ "}
                     <Moment date={chat.chats[0].date} fromNow />
                   </List.Description>
+                  {/* {!chat.chats[0].seen &&
+                    chat.chats[0].from !== loggedUser.username && (
+                      <Label color="green" size="mini" horizontal>
+                        unread
+                      </Label>
+                    )} */}
                 </List.Content>
               </List.Item>
             );

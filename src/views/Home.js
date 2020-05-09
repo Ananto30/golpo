@@ -21,8 +21,9 @@ class Home extends React.Component {
     };
   }
 
-  componentDidMount() {
-    client.Post.getAll().then((res) => {
+  async componentDidMount() {
+    try {
+      let res = await client.Post.getAll();
       this.setState({
         posts: res.data.posts,
       });
@@ -31,27 +32,33 @@ class Home extends React.Component {
       const usernamesSet = new Set(usernames);
       usernames = [...usernamesSet];
 
-      client.User.getUsersMeta(usernames).then((res) => {
-        this.props.commonStore.updateImageCache(res.data.users);
-      });
-    });
-    client.User.getByUsername("me").then((res) => {
+      res = await client.User.getUsersMeta(usernames);
+      this.props.commonStore.updateImageCache(res.data.users);
+
+      res = await client.User.getByUsername("me");
       this.setState({
         userInfo: res.data,
       });
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
     const { posts, userInfo } = this.state;
     return (
       <>
-        <Grid.Column width={4} only='large screen'>
+        <Grid.Column width={4} only="computer">
           <Loading loading={!userInfo} component={CardPlaceholder}>
             <UserCard userInfo={userInfo} ownerProfile={true} />
           </Loading>
         </Grid.Column>
-        <Grid.Column width={8} className={styles.chatmenu} mobile={16} largeScreen={8}>
+        <Grid.Column
+          width={8}
+          className={styles.chatmenu}
+          mobile={16}
+          largeScreen={8}
+        >
           <Loading loading={posts.length === 0} component={ItemPlaceholder} />
           <PostFeed posts={posts} />
         </Grid.Column>

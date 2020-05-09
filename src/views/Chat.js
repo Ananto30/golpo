@@ -11,6 +11,8 @@ import Loading from "../components/Loaders/Loading";
 import ActivityPlaceholder from "../components/Loaders/ActivityPlaceholder";
 import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
 
+import socket from "../socketClient";
+
 class Chat extends React.Component {
   contextRef = createContext();
   state = {
@@ -21,13 +23,23 @@ class Chat extends React.Component {
     historyLoading: false,
   };
 
-  componentDidMount() {
-    client.Chat.getChats().then((res) => {
+  async componentDidMount() {
+    try {
+      socket.socketIns().socket.on("message", (data) => {
+        if (data.from === this.state.activeItem)
+          this.setState((prev) => ({
+            chatHistory: [...prev.chatHistory, data],
+          }));
+      });
+
+      let res = await client.Chat.getChats();
       this.setState({
         chats: res.data.chats,
         menuLoading: false,
       });
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   handleSelect = (e, { name }) => {
@@ -43,20 +55,34 @@ class Chat extends React.Component {
   handleChat = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    client.Chat.sendChat(this.state.activeItem, data.get("text")).then(
-      (res) => {
-        let chat = {
-          from: this.props.commonStore.loggedUser.username,
-          text: data.get("text"),
-          date: new Date(),
-        };
-        this.setState((prev) => ({
-          chatHistory: [...prev.chatHistory, chat],
-        }));
-        // TODO: this seems a bit shitty
-        document.getElementById("chatText").reset();
-      }
-    );
+    // client.Chat.sendChat(this.state.activeItem, data.get("text")).then(
+    //   (res) => {
+    //     let chat = {
+    //       from: this.props.commonStore.loggedUser.username,
+    //       text: data.get("text"),
+    //       date: new Date(),
+    //     };
+    //     this.setState((prev) => ({
+    //       chatHistory: [...prev.chatHistory, chat],
+    //     }));
+    //     // TODO: this seems a bit shitty
+    //     document.getElementById("chatText").reset();
+    //   }
+    // );
+    let chat = {
+      from: this.props.commonStore.loggedUser.username,
+      text: data.get("text"),
+      date: new Date(),
+      receiver: this.state.activeItem,
+    };
+    socket.socketIns().socket.emit("message", chat);
+
+    this.setState((prev) => ({
+      chatHistory: [...prev.chatHistory, chat],
+    }));
+
+    // TODO: this seems a bit shitty
+    document.getElementById("chatText").reset();
   };
 
   render() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Comment, Icon } from "semantic-ui-react";
+import { Comment, Icon, Label } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import { inject, observer } from "mobx-react";
@@ -30,10 +30,15 @@ class Chat extends React.Component {
             <div>
               <CalenderMoment time={chat.date} />
             </div>
-            {chat.seen && (
+            {chat.seen ? (
               <div>
                 <Icon name="check" size="tiny" />
               </div>
+            ) : (
+              // <Label color="green" size="mini" horizontal>
+              //   unread
+              // </Label>
+              null
             )}
           </Comment.Metadata>
           <Comment.Text>{chat.text}</Comment.Text>
