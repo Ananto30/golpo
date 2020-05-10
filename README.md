@@ -2,7 +2,9 @@
 
 A simple social network web app built with React and Express. This is the 2nd version of the [Golpo13](https://golpo13-old.herokuapp.com/) which I built a few years back. The main purpose is to write clean code and use a frontend technology like React.
 
-***But we can continue this as an open platform for people!***
+***We can continue this as an open platform for people!***
+
+***This is not a mobile friendly web app! Not responsive!***
 
 ## Installation
 
@@ -42,6 +44,7 @@ But for development, probably you wouldn't want to build every time. So you can 
 - [x] Message page's recent chat is clickable to open chat history of that user
 - [x] Realtime messaging (using socket.io)
 
+- [ ] **MAKE IT RESPONSIVE**
 - [ ] Option to use google image
 - [ ] Message seen
 - [ ] New message/chat notification
