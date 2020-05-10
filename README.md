@@ -73,4 +73,4 @@ There's a lot to do. So please contribute to make Golpo great again 😅
 
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[![license](https://github.com/Ananto30/golpo13-v2/blob/master/LICENSE)
