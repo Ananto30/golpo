@@ -67,7 +67,7 @@ class Login extends React.Component {
         <Grid.Row></Grid.Row>
         <Grid.Row>
           <Grid.Column
-            largeScreen={4}
+            computer={4}
             mobile={12}
             // style={{ paddingTop: "10%" }}
             verticalAlign="middle"

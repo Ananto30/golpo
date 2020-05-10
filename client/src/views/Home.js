@@ -57,7 +57,7 @@ class Home extends React.Component {
           // width={8}
           className={styles.chatmenu}
           mobile={16}
-          largeScreen={8}
+          computer={8}
         >
           <Loading loading={posts.length === 0} component={ItemPlaceholder} />
           <PostFeed posts={posts} />
