@@ -1,45 +1,26 @@
 {
-  "name": "golpo13",
-  "version": "0.1.0",
+  "name": "golpo13-backend",
+  "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.19.2",
-    "lodash": "^4.17.15",
-    "mobx": "^5.15.4",
-    "mobx-react": "^6.2.2",
-    "moment": "2.24.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-moment": "^0.9.7",
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.2",
-    "socket.io-client": "^2.3.0"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node ./server/bin/www"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-validator": "^6.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.12",
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
+    "socket.io": "^2.3.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "rimraf": "^3.0.2"
   }
 }

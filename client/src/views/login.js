@@ -8,6 +8,7 @@ import {
   Icon,
   Divider,
   Header,
+  Image
 } from "semantic-ui-react";
 
 import { withRouter, Redirect } from "react-router-dom";
@@ -66,12 +67,14 @@ class Login extends React.Component {
         <Grid.Row></Grid.Row>
         <Grid.Row>
           <Grid.Column
-            width={4}
+            largeScreen={4}
+            mobile={12}
             // style={{ paddingTop: "10%" }}
             verticalAlign="middle"
           >
             <Header as="h2" icon textAlign="center">
-              <Icon name="users" circular />
+              {/* <Icon name="users" circular /> */}
+              <Image src="/images/cb.jpg"></Image>
               <Header.Content>Golpo13</Header.Content>
 
               <Header.Subheader>
@@ -119,7 +122,7 @@ class Login extends React.Component {
 
             <Button
               color="google plus"
-              href="http://localhost:7000/auth/social/google"
+              href="/auth/social/google"
               disabled={requestInit}
               loading={requestInit}
               onClick={this.handleGoogleLogin}

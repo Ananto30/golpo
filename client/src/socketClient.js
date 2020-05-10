@@ -7,7 +7,7 @@ let socketIns = null;
 class SocketClient {
   socket = null;
   connect() {
-    const socket = socketIOClient("http://localhost:7000", {
+    const socket = socketIOClient("http://localhost:8080", {
       query: { token: commonStore.authToken },
     });
     this.socket = socket;

@@ -1,8 +1,9 @@
 import axios from "axios";
-import commonStore from "./store/commonStore.js";
+import commonStore from "./store/commonStore";
 
 const api = axios.create({
-  baseURL: "http://192.168.0.105:7000/api",
+  // baseURL: "http://192.168.0.105:7000/api",
+  baseURL: "/api",
   headers: {
     "Content-Type": "application/json",
   },
