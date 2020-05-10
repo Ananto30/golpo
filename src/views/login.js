@@ -7,6 +7,7 @@ import {
   Message,
   Icon,
   Divider,
+  Header,
 } from "semantic-ui-react";
 
 import { withRouter, Redirect } from "react-router-dom";
@@ -23,9 +24,6 @@ class Login extends React.Component {
       error: null,
       requestInit: false,
     };
-  }
-  componentWillMount() {
-    socket.StartSocketServer();
   }
   handleLogin = (e) => {
     this.setState({ requestInit: true });
@@ -62,51 +60,74 @@ class Login extends React.Component {
 
     return (
       <Grid centered>
-        <Grid.Column
-          width={4}
-          style={{ paddingTop: "10%" }}
-          verticalAlign="middle"
-        >
-          <Form onSubmit={this.handleLogin} error={error}>
-            {error && (
-              <Message
-                error
-                header={error}
-                content="I think you do forget everything :|"
-              />
-            )}
-            <Form.Field>
-              <label>Username</label>
-              <input name="username" placeholder="Username" />
-            </Form.Field>
-            <Form.Field>
-              <label>Password</label>
-              <input type="password" name="password" placeholder="Password" />
-            </Form.Field>
-            <Form.Field>
-              <Checkbox
-                label="I agree to the Terms and Conditions"
-                defaultChecked
-              />
-            </Form.Field>
-
-            <Button type="submit" disabled={requestInit} loading={requestInit}>
-              Submit
-            </Button>
-          </Form>
-
-          <Divider horizontal>Or</Divider>
-
-          <Button
-            color="google plus"
-            href="http://localhost:7000/auth/social/google"
-            disabled={requestInit}
-            loading={requestInit}
-            onClick={this.handleGoogleLogin}
+        <Grid.Row></Grid.Row>
+        <Grid.Row></Grid.Row>
+        <Grid.Row></Grid.Row>
+        <Grid.Row></Grid.Row>
+        <Grid.Row>
+          <Grid.Column
+            width={4}
+            // style={{ paddingTop: "10%" }}
+            verticalAlign="middle"
           >
-            <Icon name="google" /> Login with Google
-          </Button>
-        </Grid.Column>
+            <Header as="h2" icon textAlign="center">
+              <Icon name="users" circular />
+              <Header.Content>Golpo13</Header.Content>
+
+              <Header.Subheader>
+                Just another social media who doesn't sell your data{" "}
+                <span role="img">😐</span>
+              </Header.Subheader>
+            </Header>
+
+            <br></br>
+            <br></br>
+
+            <Form onSubmit={this.handleLogin} error={error}>
+              {error && (
+                <Message
+                  error
+                  header={error}
+                  content="I think you do forget everything :|"
+                />
+              )}
+              <Form.Field>
+                <label>Username</label>
+                <input name="username" placeholder="Username" />
+              </Form.Field>
+              <Form.Field>
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Password" />
+              </Form.Field>
+              <Form.Field>
+                <Checkbox
+                  label="I agree to the Terms and Conditions"
+                  defaultChecked
+                />
+              </Form.Field>
+
+              <Button
+                type="submit"
+                disabled={requestInit}
+                loading={requestInit}
+              >
+                Login
+              </Button>
+            </Form>
+
+            <Divider horizontal>Or</Divider>
+
+            <Button
+              color="google plus"
+              href="http://localhost:7000/auth/social/google"
+              disabled={requestInit}
+              loading={requestInit}
+              onClick={this.handleGoogleLogin}
+            >
+              <Icon name="google" /> Login with Google
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
     );
   }

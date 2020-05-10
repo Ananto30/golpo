@@ -9,8 +9,8 @@ const FeedList = ({ activities }) => (
       .sort(function (a, b) {
         return new Date(b.date) - new Date(a.date);
       })
-      .map((activity) => (
-        <SingleFeed activity={activity} key={activity._id} />
+      .map((activity, index) => (
+        <SingleFeed activity={activity} key={index} />
       ))}
   </Feed>
 );

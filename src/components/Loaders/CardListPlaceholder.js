@@ -4,7 +4,7 @@ import { Placeholder, Card, Button } from "semantic-ui-react";
 const CardListPlaceholder = () => (
   <Card.Group itemsPerRow={4}>
     {Array.from({ length: 8 }, (_, k) => (
-      <Card>
+      <Card key={k}>
         <Placeholder>
           <Placeholder.Image square />
         </Placeholder>

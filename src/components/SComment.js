@@ -7,7 +7,6 @@ import { inject, observer } from "mobx-react";
 import CalenderMoment from "./CalenderMoment";
 
 import { IMAGE_SMALL } from "../defaults";
-import Moment from "react-moment";
 
 class SComment extends React.Component {
   render() {

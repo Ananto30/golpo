@@ -17,7 +17,7 @@ class CommonStore {
   setAuthToken(token) {
     this.authToken = token;
     window.localStorage.setItem("jwtToken", token);
-    socket.StartSocketServer()
+    socket.StartSocketServer();
   }
 
   // private method

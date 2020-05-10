@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Item, Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Item } from "semantic-ui-react";
 import PostComment from "../components/PostComment";
 import { withRouter } from "react-router-dom";
 

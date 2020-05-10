@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { Grid, Dimmer, Loader } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 import { inject, observer } from "mobx-react";
 
@@ -54,7 +54,7 @@ class Home extends React.Component {
           </Loading>
         </Grid.Column>
         <Grid.Column
-          width={8}
+          // width={8}
           className={styles.chatmenu}
           mobile={16}
           largeScreen={8}

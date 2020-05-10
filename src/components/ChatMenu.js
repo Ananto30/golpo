@@ -16,7 +16,7 @@ class ChatMenu extends React.Component {
           .sort(function (a, b) {
             return new Date(b.chats[0].date) - new Date(a.chats[0].date);
           })
-          .map((chat) => {
+          .map((chat, index) => {
             const oppositeUser =
               chat.participants.filter((e) => e !== loggedUser.username)[0] ||
               chat.participants[0];
@@ -25,6 +25,7 @@ class ChatMenu extends React.Component {
                 name={oppositeUser}
                 active={activeItem === oppositeUser}
                 onClick={handleSelect}
+                key={index}
               >
                 <Image
                   avatar

@@ -9,8 +9,8 @@ const PostFeed = ({ posts }) => (
       .sort(function (a, b) {
         return new Date(b.date) - new Date(a.date);
       })
-      .map((post) => (
-        <Post post={post} key={post._id} />
+      .map((post, index) => (
+        <Post post={post} key={index} />
       ))}
   </Item.Group>
 );
