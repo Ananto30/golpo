@@ -17,7 +17,7 @@ const ActivityLayout = ({ component: Component, ...rest }) => (
           <Grid.Column
             width={4}
             className={styles.chathistory}
-            only="large screen"
+            only="computer"
           >
             <ActivityFeed />
           </Grid.Column>
