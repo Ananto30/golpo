@@ -84,7 +84,7 @@ class UpdateProfileImageModal extends Component {
           <Modal.Header>Choose the image that reflects you!</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              {this.listOfNames.map((name) => (
+              {this.listOfNames.map((name, index) => (
                 <Image
                   as={Button}
                   src={`/images/avatar/small/${name}`}
@@ -92,6 +92,7 @@ class UpdateProfileImageModal extends Component {
                   ui={false}
                   size="tiny"
                   onClick={() => this.sendMessageHandler(name)}
+                  key={index}
                 />
               ))}
             </Modal.Description>

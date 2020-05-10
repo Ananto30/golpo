@@ -6,7 +6,6 @@ let socketIns = null;
 
 class SocketClient {
   socket = null;
-
   connect() {
     const socket = socketIOClient("http://localhost:7000", {
       query: { token: commonStore.authToken },
@@ -23,10 +22,8 @@ class SocketClient {
   }
 
   static init() {
-    if (!socketIns) {
-      socketIns = new SocketClient();
-      socketIns.connect();
-    }
+    socketIns = new SocketClient();
+    socketIns.connect();
   }
 
   static getSoket() {

@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { Grid, Dimmer, Loader, Button, Form, Header } from "semantic-ui-react";
+import { Grid, Button, Form, Header } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 

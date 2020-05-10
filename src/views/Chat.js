@@ -26,6 +26,7 @@ class Chat extends React.Component {
   async componentDidMount() {
     try {
       socket.socketIns().socket.on("message", (data) => {
+        // console.log(data);
         if (data.from === this.state.activeItem)
           this.setState((prev) => ({
             chatHistory: [...prev.chatHistory, data],

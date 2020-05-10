@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { Grid, Dimmer, Loader, Card } from "semantic-ui-react";
+import { Grid, Card } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import { inject, observer } from "mobx-react";
@@ -24,7 +24,7 @@ class Users extends React.Component {
 
   async componentDidMount() {
     try {
-      let res = client.User.getAllUsers();
+      let res = await client.User.getAllUsers();
       this.setState({
         users: res.data.users,
         isLoading: false,
