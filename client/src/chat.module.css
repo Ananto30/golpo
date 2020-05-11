@@ -1,5 +1,5 @@
 .chatmenu {
-  height: 90vh;
+  max-height: 90vh;
   overflow: auto;
   /* this will hide the scrollbar in mozilla based browsers */
   overflow: -moz-scrollbars-none;
@@ -14,7 +14,7 @@
 }
 
 .chathistory {
-  height: 65vh;
+  max-height: 65vh;
   overflow: auto;
   /* this will hide the scrollbar in mozilla based browsers */
   overflow: -moz-scrollbars-none;

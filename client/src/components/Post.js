@@ -20,7 +20,7 @@ class Post extends React.Component {
               ? `/images/avatar/large/${imageCache[post.author]}`
               : IMAGE_LARGE
           }
-          avatar
+          // avatar
           as={Link}
           to={`/profile/${post.author}`}
         />

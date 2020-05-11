@@ -2,7 +2,7 @@ import React from "react";
 import { Placeholder, Card, Button } from "semantic-ui-react";
 
 const CardListPlaceholder = () => (
-  <Card.Group itemsPerRow={4}>
+  <Card.Group itemsPerRow={4} doubling>
     {Array.from({ length: 8 }, (_, k) => (
       <Card key={k}>
         <Placeholder>

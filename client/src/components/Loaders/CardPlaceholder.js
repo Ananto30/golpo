@@ -3,7 +3,7 @@ import { Placeholder, Card, Button } from "semantic-ui-react";
 
 const CardPlaceholder = () => (
   <Placeholder>
-    <Card>
+    <Card fluid>
       <Placeholder>
         <Placeholder.Image square />
       </Placeholder>

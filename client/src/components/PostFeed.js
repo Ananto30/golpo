@@ -4,7 +4,7 @@ import React from "react";
 import Post from "./Post";
 
 const PostFeed = ({ posts }) => (
-  <Item.Group divided>
+  <Item.Group divided unstackable>
     {posts
       .sort(function (a, b) {
         return new Date(b.date) - new Date(a.date);

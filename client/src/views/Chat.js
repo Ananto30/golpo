@@ -56,34 +56,23 @@ class Chat extends React.Component {
   handleChat = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    // client.Chat.sendChat(this.state.activeItem, data.get("text")).then(
-    //   (res) => {
-    //     let chat = {
-    //       from: this.props.commonStore.loggedUser.username,
-    //       text: data.get("text"),
-    //       date: new Date(),
-    //     };
-    //     this.setState((prev) => ({
-    //       chatHistory: [...prev.chatHistory, chat],
-    //     }));
-    //     // TODO: this seems a bit shitty
-    //     document.getElementById("chatText").reset();
-    //   }
-    // );
-    let chat = {
-      from: this.props.commonStore.loggedUser.username,
-      text: data.get("text"),
-      date: new Date(),
-      receiver: this.state.activeItem,
-    };
-    socket.socketIns().socket.emit("message", chat);
+    const text = data.get("text");
+    if (text !== "") {
+      let chat = {
+        from: this.props.commonStore.loggedUser.username,
+        text: text,
+        date: new Date(),
+        receiver: this.state.activeItem,
+      };
+      socket.socketIns().socket.emit("message", chat);
 
-    this.setState((prev) => ({
-      chatHistory: [...prev.chatHistory, chat],
-    }));
+      this.setState((prev) => ({
+        chatHistory: [...prev.chatHistory, chat],
+      }));
 
-    // TODO: this seems a bit shitty
-    document.getElementById("chatText").reset();
+      // TODO: this seems a bit shitty
+      document.getElementById("chatText").reset();
+    }
   };
 
   render() {
@@ -96,7 +85,7 @@ class Chat extends React.Component {
     } = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
     return (
-      <Grid>
+      <Grid stackable>
         <Grid.Column width={4} className={styles.chatmenu}>
           <Loading loading={menuLoading} component={ActivityPlaceholder}>
             {chats.length === 0 ? (
