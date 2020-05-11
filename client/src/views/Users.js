@@ -40,7 +40,7 @@ class Users extends React.Component {
     return (
       <Grid.Column width={12} className={styles.chatmenu}>
         <Loading loading={isLoading} component={CardListPlaceholder} />
-        <Card.Group itemsPerRow={4}>
+        <Card.Group itemsPerRow={4} doubling>
           {users.map((user) => (
             <Card
               as={Link}

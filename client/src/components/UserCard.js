@@ -12,7 +12,7 @@ const UserCard = ({ userInfo, ownerProfile }) => {
     setUserInfo(info);
   };
   return (
-    <Card>
+    <Card fluid>
       <UpdateProfileImageModal userInfo={uInfo} ownerProfile={ownerProfile} />
       <Card.Content>
         <Card.Header>{uInfo.username}</Card.Header>

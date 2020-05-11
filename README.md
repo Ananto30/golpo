@@ -1,6 +1,6 @@
 # Golpo13 (v2)
 
-A simple social network web app built with React and Express. This is the 2nd version of the [Golpo13](https://golpo13-old.herokuapp.com/) which I built a few years back. The main purpose is to write clean code and use a frontend technology like React.
+A simple social network web app built with React and Express. This (https://golpo13.herokuapp.com/) is the 2nd version of the https://golpo13-old.herokuapp.com/ which I built a few years back. The main purpose is to write clean code and use a frontend technology like React.
 
 ***We can continue this as an open platform for people!***
 
