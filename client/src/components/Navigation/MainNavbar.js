@@ -12,7 +12,7 @@ import {
   Button,
 } from "semantic-ui-react";
 
-import routes from "../routes";
+import routes from "../../routes";
 
 class MainNavbar extends React.Component {
   state = {
@@ -55,7 +55,6 @@ class MainNavbar extends React.Component {
   render() {
     const { activeItem, isMobile, sidebarVisible } = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
-    console.log(isMobile);
     return (
       <Sticky>
         {isMobile ? (
@@ -67,7 +66,6 @@ class MainNavbar extends React.Component {
                 border: "none",
                 backgroundColor: "#fff",
               }}
-              fixed
             >
               <Menu.Menu position="right">
                 <Menu.Item>
@@ -129,7 +127,6 @@ class MainNavbar extends React.Component {
               border: "none",
               backgroundColor: "#fff",
             }}
-            fixed
           >
             <Menu.Item
               name="home"

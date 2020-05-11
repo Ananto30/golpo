@@ -1,10 +1,9 @@
+import {withRouter} from "react-router-dom";
+import {inject, observer} from "mobx-react";
+
 import React from "react";
 import client from "../client";
 import routes from "../routes";
-
-import { inject, observer } from "mobx-react";
-
-import { withRouter, Redirect } from "react-router-dom";
 
 class GoogleLogin extends React.Component {
   async componentDidMount() {

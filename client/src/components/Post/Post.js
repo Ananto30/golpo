@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 import { inject, observer } from "mobx-react";
 
-import CalenderMoment from "./CalenderMoment";
-import {IMAGE_LARGE} from "../defaults";
+import CalenderMoment from "../CalenderMoment";
+import {IMAGE_LARGE} from "../../defaults";
 
 class Post extends React.Component {
   render() {

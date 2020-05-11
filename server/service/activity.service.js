@@ -7,6 +7,12 @@ exports.getAll = async () => {
   return activities;
 };
 
+exports.getLatest = async (limit) => {
+  const activities = await Activity.find({}).sort({ date: -1 }).limit(limit);
+
+  return activities;
+};
+
 exports.getByUsername = async (username) => {
   const activities = await Activity.find({ username: username });
 

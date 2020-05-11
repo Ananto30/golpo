@@ -1,33 +1,20 @@
-import React from "react";
-import {
-  Button,
-  Checkbox,
-  Form,
-  Grid,
-  Message,
-  Icon,
-  Divider,
-  Header,
-  Image
-} from "semantic-ui-react";
+import {Button, Divider, Grid, Header, Icon, Image,} from "semantic-ui-react";
+import {Redirect, withRouter} from "react-router-dom";
+import {inject, observer} from "mobx-react";
 
-import { withRouter, Redirect } from "react-router-dom";
-import { inject, observer } from "mobx-react";
+import React from "react";
 import client from "../client";
 import routes from "../routes";
-
-import socket from "../socketClient";
+import {LoginForm} from "../components/LoginForm";
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      requestInit: false,
-    };
-  }
+  state = {
+    error: null,
+    requestInit: false,
+  };
+
   handleLogin = (e) => {
-    this.setState({ requestInit: true });
+    this.setState({requestInit: true});
     e.preventDefault();
     const data = new FormData(e.target);
     client.Auth.login(data.get("username"), data.get("password"))
@@ -51,20 +38,21 @@ class Login extends React.Component {
       });
   };
   handleGoogleLogin = (e) => {
-    this.setState({ requestInit: true });
+    this.setState({requestInit: true});
   };
+
   render() {
-    const { error, requestInit } = this.state;
+    const {error, requestInit} = this.state;
     const authToken = this.props.commonStore.authToken;
 
-    if (authToken) return <Redirect to={routes.home} />;
+    if (authToken) return <Redirect to={routes.home}/>;
 
     return (
       <Grid centered>
-        <Grid.Row></Grid.Row>
-        <Grid.Row></Grid.Row>
-        <Grid.Row></Grid.Row>
-        <Grid.Row></Grid.Row>
+        <Grid.Row/>
+        <Grid.Row/>
+        <Grid.Row/>
+        <Grid.Row/>
         <Grid.Row>
           <Grid.Column
             computer={4}
@@ -74,7 +62,7 @@ class Login extends React.Component {
           >
             <Header as="h2" icon textAlign="center">
               {/* <Icon name="users" circular /> */}
-              <Image src="/images/cb.jpg"></Image>
+              <Image src="/images/cb.jpg"/>
               <Header.Content>Golpo13</Header.Content>
 
               <Header.Subheader>
@@ -83,40 +71,14 @@ class Login extends React.Component {
               </Header.Subheader>
             </Header>
 
-            <br></br>
-            <br></br>
+            <br/>
+            <br/>
 
-            <Form onSubmit={this.handleLogin} error={error}>
-              {error && (
-                <Message
-                  error
-                  header={error}
-                  content="I think you do forget everything :|"
-                />
-              )}
-              <Form.Field>
-                <label>Username</label>
-                <input name="username" placeholder="Username" />
-              </Form.Field>
-              <Form.Field>
-                <label>Password</label>
-                <input type="password" name="password" placeholder="Password" />
-              </Form.Field>
-              <Form.Field>
-                <Checkbox
-                  label="I agree to the Terms and Conditions"
-                  defaultChecked
-                />
-              </Form.Field>
-
-              <Button
-                type="submit"
-                disabled={requestInit}
-                loading={requestInit}
-              >
-                Login
-              </Button>
-            </Form>
+            <LoginForm
+              handleLogin={this.handleLogin}
+              error={error}
+              requestInit={requestInit}
+            />
 
             <Divider horizontal>Or</Divider>
 
@@ -127,7 +89,7 @@ class Login extends React.Component {
               loading={requestInit}
               onClick={this.handleGoogleLogin}
             >
-              <Icon name="google" /> Login with Google
+              <Icon name="google"/> Login with Google
             </Button>
           </Grid.Column>
         </Grid.Row>
@@ -135,4 +97,5 @@ class Login extends React.Component {
     );
   }
 }
+
 export default inject("commonStore")(observer(withRouter(Login)));

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Modal, Form } from "semantic-ui-react";
 
-import client from "../client";
+import client from "../../client";
 
 class UpdateProfileModal extends Component {
   state = { open: false, userInfo: this.props.userInfo };

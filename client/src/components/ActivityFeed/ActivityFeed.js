@@ -6,7 +6,7 @@ import ActivityPlaceholder from "../Loaders/ActivityPlaceholder";
 import FeedList from "./FeedList";
 
 class ActivityFeed extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     const { activityStore } = this.props;
     if (activityStore.activities.length === 0) {
       activityStore.loadActivities();
@@ -18,7 +18,7 @@ class ActivityFeed extends React.Component {
     if (activityStore.isLoadingActivities) return <ActivityPlaceholder />;
     return (
       <>
-        <FeedList activities={activityStore.activities.slice()} />
+        <FeedList activities={activityStore.activities} />
       </>
     );
   }

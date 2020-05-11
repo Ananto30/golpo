@@ -4,7 +4,7 @@ import { Card } from "semantic-ui-react";
 import SendMessageModal from "./SendMessageModal";
 import UpdateProfileModal from "./UpdateProfileModal";
 import UpdateProfileImageModal from "./UpdateProfileImageModal";
-import { WORK, TAGLINE } from "../defaults";
+import { WORK, TAGLINE } from "../../defaults";
 
 const UserCard = ({ userInfo, ownerProfile }) => {
   const [uInfo, setUserInfo] = useState(userInfo);

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 import { inject, observer } from "mobx-react";
 
-import CalenderMoment from "./CalenderMoment";
-import { IMAGE_SMALL } from "../defaults";
+import CalenderMoment from "../CalenderMoment";
+import { IMAGE_SMALL } from "../../defaults";
 
 class Chat extends React.Component {
   render() {

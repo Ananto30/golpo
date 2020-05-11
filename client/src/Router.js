@@ -2,16 +2,16 @@ import React from "react";
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import routes from "./routes";
-import Home from "./views/Home";
-import Chat from "./views/Chat";
+import Home from "./pages/Home";
+import Chat from "./pages/Message";
 import PrivateRoute from "./components/PrivateRoute";
-import SinglePost from "./views/SinglePost";
-import Login from "./views/login";
-import Profile from "./views/Profile";
-import Users from "./views/Users";
+import SinglePost from "./pages/SinglePost";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Users from "./pages/Users";
 
 import ActivityLayout from "./layouts/ActivityLayout";
-import GoogleLogin from "./views/GoogleLogin";
+import GoogleLogin from "./pages/GoogleLogin";
 import NavigationLayout from "./layouts/NavigationLayout";
 
 const Router = () => {

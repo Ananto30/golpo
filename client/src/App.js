@@ -6,7 +6,7 @@ import Router from "./Router";
 import socket from "./socketClient";
 
 class App extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     socket.StartSocketServer();
   }
   render() {

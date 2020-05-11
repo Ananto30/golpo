@@ -8,6 +8,8 @@ import { Provider } from "mobx-react";
 import commonStore from "./store/commonStore";
 import activityStore from "./store/activityStore";
 
+import 'mobx-react-lite/batchingForReactDom'
+
 const stores = {
   commonStore,
   activityStore,
