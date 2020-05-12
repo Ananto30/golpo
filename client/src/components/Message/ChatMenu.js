@@ -4,7 +4,7 @@ import Moment from "react-moment";
 
 import { inject, observer } from "mobx-react";
 
-import { IMAGE_LARGE } from "../defaults";
+import { IMAGE_LARGE } from "../../defaults";
 
 class ChatMenu extends React.Component {
   render() {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Header, Comment, Form, Button } from "semantic-ui-react";
 
-import SComment from "./SComment";
+import SComment from "./SingleComment";
 
 const PostComment = ({ comments, handleComment }) => (
   <Comment.Group>
@@ -13,8 +13,8 @@ const PostComment = ({ comments, handleComment }) => (
       // .sort(function (a, b) {
       //   return new Date(b.date) - new Date(a.date);
       // })
-      .map((comment) => (
-        <SComment comment={comment} />
+      .map((comment, index) => (
+        <SComment comment={comment} key={index} />
       ))}
 
     <Form id="commentText" onSubmit={handleComment} reply>

@@ -1,11 +1,11 @@
-import React, { createContext } from "react";
-import { Grid, Card } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import React from "react";
+import {Card, Grid} from "semantic-ui-react";
+import {Link} from "react-router-dom";
 
-import { inject, observer } from "mobx-react";
+import {inject, observer} from "mobx-react";
 
 import client from "../client";
-import { IMAGE_LARGE, WORK, TAGLINE } from "../defaults";
+import {IMAGE_LARGE, TAGLINE, WORK} from "../defaults";
 
 import styles from "../chat.module.css";
 import Loading from "../components/Loaders/Loading";
@@ -13,14 +13,11 @@ import Loading from "../components/Loaders/Loading";
 import CardListPlaceholder from "../components/Loaders/CardListPlaceholder";
 
 class Users extends React.Component {
-  contextRef = createContext();
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [],
-      isLoading: true,
-    };
-  }
+  state = {
+    users: [],
+    isLoading: true,
+  };
+
 
   async componentDidMount() {
     try {
@@ -36,13 +33,14 @@ class Users extends React.Component {
   }
 
   render() {
-    const { users, isLoading } = this.state;
+    const {users, isLoading} = this.state;
     return (
       <Grid.Column width={12} className={styles.chatmenu}>
-        <Loading loading={isLoading} component={CardListPlaceholder} />
+        <Loading loading={isLoading} component={CardListPlaceholder}/>
         <Card.Group itemsPerRow={4} doubling>
-          {users.map((user) => (
+          {users.map((user, index) => (
             <Card
+              key={index}
               as={Link}
               to={`/profile/${user.username}`}
               image={

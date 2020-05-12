@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 import { inject, observer } from "mobx-react";
 
-import CalenderMoment from "./CalenderMoment";
+import CalenderMoment from "../CalenderMoment";
 
-import { IMAGE_SMALL } from "../defaults";
+import { IMAGE_SMALL } from "../../defaults";
 
-class SComment extends React.Component {
+class SingleComment extends React.Component {
   render() {
     const comment = this.props.comment;
     return (
@@ -42,4 +42,4 @@ class SComment extends React.Component {
   }
 }
 
-export default inject("commonStore")(observer(SComment));
+export default inject("commonStore")(observer(SingleComment));

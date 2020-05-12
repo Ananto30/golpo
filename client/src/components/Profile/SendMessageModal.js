@@ -7,7 +7,7 @@ import {
   Transition,
 } from "semantic-ui-react";
 
-import client from "../client";
+import client from "../../client";
 
 class SendMessageModal extends Component {
   state = { open: false, sent: false };

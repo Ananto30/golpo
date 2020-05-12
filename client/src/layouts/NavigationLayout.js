@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router";
-import MainNavbar from "../components/MainNavbar";
+import MainNavbar from "../components/Navigation/MainNavbar";
 
 const NavigationLayout = ({ component: Component, ...rest }) => (
   <Route

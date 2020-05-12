@@ -2,7 +2,9 @@ const activityService = require("../service/activity.service");
 
 exports.getAllActivities = async (req, res) => {
   try {
-    activities = await activityService.getAll();
+    // TODO: Make new method?
+    // activities = await activityService.getAll();
+    activities = await activityService.getLatest(20);
 
     res.status(200).json({ activities: activities });
   } catch (err) {

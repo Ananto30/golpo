@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Card } from "semantic-ui-react";
+import { TAGLINE, WORK } from "../../defaults";
 
+import { Card } from "semantic-ui-react";
 import SendMessageModal from "./SendMessageModal";
-import UpdateProfileModal from "./UpdateProfileModal";
 import UpdateProfileImageModal from "./UpdateProfileImageModal";
-import { WORK, TAGLINE } from "../defaults";
+import UpdateProfileModal from "./UpdateProfileModal";
 
 const UserCard = ({ userInfo, ownerProfile }) => {
   const [uInfo, setUserInfo] = useState(userInfo);
@@ -15,7 +15,9 @@ const UserCard = ({ userInfo, ownerProfile }) => {
     <Card fluid>
       <UpdateProfileImageModal userInfo={uInfo} ownerProfile={ownerProfile} />
       <Card.Content>
-        <Card.Header>{uInfo.username}</Card.Header>
+        <Card.Header style={{ fontFamily: "monospace" }}>
+          {uInfo.username}
+        </Card.Header>
         <Card.Meta>
           <span className="date">{!uInfo.work ? WORK : uInfo.work}</span>
         </Card.Meta>
@@ -30,7 +32,7 @@ const UserCard = ({ userInfo, ownerProfile }) => {
             handleInfoChange={handleInfoChange}
           />
         ) : (
-          <SendMessageModal user={uInfo.username}/>
+          <SendMessageModal user={uInfo.username} />
         )}
       </Card.Content>
     </Card>

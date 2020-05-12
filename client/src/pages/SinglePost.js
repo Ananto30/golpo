@@ -1,26 +1,24 @@
 import * as React from "react";
-import { Grid, Item } from "semantic-ui-react";
-import PostComment from "../components/PostComment";
-import { withRouter } from "react-router-dom";
+import {Grid, Item} from "semantic-ui-react";
+import PostComment from "../components/Post/PostComment";
+import {withRouter} from "react-router-dom";
 
 import client from "../client.js";
-import Post from "../components/Post";
+import Post from "../components/Post/Post";
 import Loading from "../components/Loaders/Loading";
 import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
 
 import styles from "../chat.module.css";
 
 class SinglePost extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      post: null,
-      postComments: [],
-    };
-  }
+  state = {
+    post: null,
+    postComments: [],
+  };
+
 
   async componentDidMount() {
-    const { match } = this.props;
+    const {match} = this.props;
     const postId = match.params.id;
     try {
       let res = await client.Post.getById(postId);
@@ -53,13 +51,13 @@ class SinglePost extends React.Component {
   };
 
   render() {
-    const { post, postComments } = this.state;
+    const {post, postComments} = this.state;
     return (
       <Grid.Column width={12} className={styles.chatmenu}>
         <Loading loading={!post} component={ItemPlaceholder}>
           <>
             <Item.Group>
-              <Post post={post} />
+              <Post post={post}/>
             </Item.Group>
             <PostComment
               comments={postComments}

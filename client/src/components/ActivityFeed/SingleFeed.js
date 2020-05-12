@@ -26,6 +26,7 @@ const SingleFeed = ({ activity, ...props }) => {
         <Feed.Extra text>{activity.extra_text}</Feed.Extra>
         <Feed.Extra
           images={
+            activity.extra_images.length > 0 &&
             activity.extra_images[0] && [
               `/images/avatar/large/${activity.extra_images[0]}`,
             ]

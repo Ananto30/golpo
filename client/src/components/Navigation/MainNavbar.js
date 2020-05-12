@@ -1,18 +1,17 @@
-import React from "react";
-
-import { inject, observer } from "mobx-react";
-import { withRouter, Link } from "react-router-dom";
 import {
-  Sticky,
-  Menu,
-  Input,
-  Sidebar,
-  Icon,
-  Segment,
   Button,
+  Icon,
+  Input,
+  Menu,
+  Segment,
+  Sidebar,
+  Sticky,
 } from "semantic-ui-react";
+import { Link, withRouter } from "react-router-dom";
+import { inject, observer } from "mobx-react";
 
-import routes from "../routes";
+import React from "react";
+import routes from "../../routes";
 
 class MainNavbar extends React.Component {
   state = {
@@ -55,7 +54,6 @@ class MainNavbar extends React.Component {
   render() {
     const { activeItem, isMobile, sidebarVisible } = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
-    console.log(isMobile);
     return (
       <Sticky>
         {isMobile ? (
@@ -66,8 +64,8 @@ class MainNavbar extends React.Component {
                 height: "10vh",
                 border: "none",
                 backgroundColor: "#fff",
+                fontFamily: "monospace"
               }}
-              fixed
             >
               <Menu.Menu position="right">
                 <Menu.Item>
@@ -128,8 +126,8 @@ class MainNavbar extends React.Component {
               height: "100px",
               border: "none",
               backgroundColor: "#fff",
+              fontFamily: "monospace"
             }}
-            fixed
           >
             <Menu.Item
               name="home"

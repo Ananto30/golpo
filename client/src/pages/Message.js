@@ -1,10 +1,10 @@
-import React, { createContext } from "react";
-import { Grid, Dimmer, Loader, Form, Button, Ref } from "semantic-ui-react";
+import React from "react";
+import {Button, Form, Grid} from "semantic-ui-react";
 
-import { inject, observer } from "mobx-react";
+import {inject, observer} from "mobx-react";
 
-import ChatMenu from "../components/ChatMenu";
-import ChatHistory from "../components/ChatHistory";
+import ChatMenu from "../components/Message/ChatMenu";
+import ChatHistory from "../components/Message/ChatHistory";
 import client from "../client";
 import styles from "../chat.module.css";
 import Loading from "../components/Loaders/Loading";
@@ -13,8 +13,7 @@ import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
 
 import socket from "../socketClient";
 
-class Chat extends React.Component {
-  contextRef = createContext();
+class Message extends React.Component {
   state = {
     activeItem: null,
     chats: [],
@@ -43,8 +42,8 @@ class Chat extends React.Component {
     }
   }
 
-  handleSelect = (e, { name }) => {
-    this.setState({ activeItem: name, historyLoading: true });
+  handleSelect = (e, {name}) => {
+    this.setState({activeItem: name, historyLoading: true});
     client.Chat.getChatsByReceiver(name).then((res) => {
       this.setState({
         chatHistory: res.data.chats,
@@ -113,9 +112,9 @@ class Chat extends React.Component {
                   id="chatText"
                   onSubmit={this.handleChat}
                   reply
-                  style={{ paddingTop: "20px" }}
+                  style={{paddingTop: "20px"}}
                 >
-                  <Form.TextArea name="text" />
+                  <Form.TextArea name="text"/>
                   <Button
                     content="Add Reply"
                     labelPosition="left"
@@ -131,4 +130,4 @@ class Chat extends React.Component {
   }
 }
 
-export default inject("commonStore")(observer(Chat));
+export default inject("commonStore")(observer(Message));

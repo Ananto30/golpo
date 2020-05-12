@@ -1,36 +1,32 @@
-import React, { createContext } from "react";
-import { Grid, Button, Form, Header } from "semantic-ui-react";
-import { withRouter } from "react-router-dom";
-import { inject, observer } from "mobx-react";
+import {Button, Form, Grid, Header} from "semantic-ui-react";
+import {inject, observer} from "mobx-react";
 
-import PostFeed from "../components/PostFeed";
-import UserCard from "../components/UserCard";
-import client from "../client";
-
-import styles from "../chat.module.css";
+import CardPlaceholder from "../components/Loaders/CardPlaceholder";
 import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
 import Loading from "../components/Loaders/Loading";
-import CardPlaceholder from "../components/Loaders/CardPlaceholder";
+import PostFeed from "../components/Post/PostFeed";
+import React from "react";
+import UserCard from "../components/Profile/UserCard";
+import client from "../client";
+import styles from "../chat.module.css";
+import {withRouter} from "react-router-dom";
 
 class Profile extends React.Component {
-  contextRef = createContext();
   shareLines = [
     "Share a joke",
     "Tell them something",
     "Are you ok?",
     "Tell me, do you bleed?",
   ];
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-      userInfo: null,
-      isLoading: true,
-    };
-  }
+  state = {
+    posts: [],
+    userInfo: null,
+    isLoading: true,
+  };
+
   async componentDidMount() {
     try {
-      const { match } = this.props;
+      const {match} = this.props;
       let username = match.params.id;
       if (username == null) {
         username = "me";
@@ -67,26 +63,26 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { posts, userInfo, isLoading } = this.state;
+    const {posts, userInfo, isLoading} = this.state;
     const loggedUser = this.props.commonStore.loggedUser;
     const ownerProfile = userInfo && loggedUser.username === userInfo.username;
     return (
       <>
         <Grid.Column width={4}>
           <Loading loading={!userInfo} component={CardPlaceholder}>
-            <UserCard userInfo={userInfo} ownerProfile={ownerProfile} />
+            <UserCard userInfo={userInfo} ownerProfile={ownerProfile}/>
           </Loading>
         </Grid.Column>
         <Grid.Column width={8} className={styles.chatmenu}>
           <Loading loading={isLoading} component={ItemPlaceholder}>
             {ownerProfile && (
               <Form id="postText" onSubmit={this.handlePost}>
-                <Form.TextArea name="text" required rows={4} />
+                <Form.TextArea name="text" required rows={4}/>
                 <Button
                   content={
                     this.shareLines[
                       Math.floor(Math.random() * this.shareLines.length)
-                    ]
+                      ]
                   }
                   labelPosition="left"
                   icon="edit"
@@ -99,7 +95,7 @@ class Profile extends React.Component {
                 This one doesn't like to share anything!
               </Header>
             ) : (
-              <PostFeed posts={posts} />
+              <PostFeed posts={posts}/>
             )}
           </Loading>
         </Grid.Column>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Header, Comment } from "semantic-ui-react";
 
-import styles from "../chat.module.css";
+import styles from "../../chat.module.css";
 
 import Chat from "./Chat";
 

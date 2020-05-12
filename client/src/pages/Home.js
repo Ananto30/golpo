@@ -1,25 +1,20 @@
-import React, { createContext } from "react";
-import { Grid } from "semantic-ui-react";
-
 import { inject, observer } from "mobx-react";
 
-import PostFeed from "../components/PostFeed";
-import UserCard from "../components/UserCard";
-import client from "../client";
-import styles from "../chat.module.css";
+import CardPlaceholder from "../components/Loaders/CardPlaceholder";
+import { Grid } from "semantic-ui-react";
 import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
 import Loading from "../components/Loaders/Loading";
-import CardPlaceholder from "../components/Loaders/CardPlaceholder";
+import PostFeed from "../components/Post/PostFeed";
+import React from "react";
+import UserCard from "../components/Profile/UserCard";
+import client from "../client";
+import styles from "../chat.module.css";
 
 class Home extends React.Component {
-  contextRef = createContext();
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-      userInfo: null,
-    };
-  }
+  state = {
+    posts: [],
+    userInfo: null,
+  };
 
   async componentDidMount() {
     try {
@@ -53,12 +48,7 @@ class Home extends React.Component {
             <UserCard userInfo={userInfo} ownerProfile={true} />
           </Loading>
         </Grid.Column>
-        <Grid.Column
-          // width={8}
-          className={styles.chatmenu}
-          mobile={16}
-          computer={8}
-        >
+        <Grid.Column className={styles.chatmenu} mobile={16} computer={8}>
           <Loading loading={posts.length === 0} component={ItemPlaceholder} />
           <PostFeed posts={posts} />
         </Grid.Column>
