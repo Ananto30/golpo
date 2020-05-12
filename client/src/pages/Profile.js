@@ -1,16 +1,15 @@
-import React from "react";
 import {Button, Form, Grid, Header} from "semantic-ui-react";
-import {withRouter} from "react-router-dom";
 import {inject, observer} from "mobx-react";
 
-import PostFeed from "../components/Post/PostFeed";
-import UserCard from "../components/Profile/UserCard";
-import client from "../client";
-
-import styles from "../chat.module.css";
+import CardPlaceholder from "../components/Loaders/CardPlaceholder";
 import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
 import Loading from "../components/Loaders/Loading";
-import CardPlaceholder from "../components/Loaders/CardPlaceholder";
+import PostFeed from "../components/Post/PostFeed";
+import React from "react";
+import UserCard from "../components/Profile/UserCard";
+import client from "../client";
+import styles from "../chat.module.css";
+import {withRouter} from "react-router-dom";
 
 class Profile extends React.Component {
   shareLines = [

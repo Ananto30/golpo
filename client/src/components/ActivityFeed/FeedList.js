@@ -1,9 +1,9 @@
-import React from "react";
 import Feed from "semantic-ui-react/dist/commonjs/views/Feed";
+import React from "react";
 import SingleFeed from "./SingleFeed";
 
 const FeedList = ({ activities }) => (
-  <Feed>
+  <Feed style={{ fontSize: "12px", lineHeight: "1.2em" }}>
     {activities
       .slice()
       // .sort(function (a, b) {

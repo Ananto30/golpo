@@ -1,17 +1,16 @@
-import React from "react";
-
-import { inject, observer } from "mobx-react";
-import { withRouter, Link } from "react-router-dom";
 import {
-  Sticky,
-  Menu,
-  Input,
-  Sidebar,
-  Icon,
-  Segment,
   Button,
+  Icon,
+  Input,
+  Menu,
+  Segment,
+  Sidebar,
+  Sticky,
 } from "semantic-ui-react";
+import { Link, withRouter } from "react-router-dom";
+import { inject, observer } from "mobx-react";
 
+import React from "react";
 import routes from "../../routes";
 
 class MainNavbar extends React.Component {
@@ -65,6 +64,7 @@ class MainNavbar extends React.Component {
                 height: "10vh",
                 border: "none",
                 backgroundColor: "#fff",
+                fontFamily: "monospace"
               }}
             >
               <Menu.Menu position="right">
@@ -126,6 +126,7 @@ class MainNavbar extends React.Component {
               height: "100px",
               border: "none",
               backgroundColor: "#fff",
+              fontFamily: "monospace"
             }}
           >
             <Menu.Item

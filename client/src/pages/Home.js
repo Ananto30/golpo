@@ -1,11 +1,11 @@
-import React from "react";
-import {inject, observer} from "mobx-react";
+import { inject, observer } from "mobx-react";
 
 import CardPlaceholder from "../components/Loaders/CardPlaceholder";
-import {Grid} from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import ItemPlaceholder from "../components/Loaders/ItemPlaceholder";
 import Loading from "../components/Loaders/Loading";
 import PostFeed from "../components/Post/PostFeed";
+import React from "react";
 import UserCard from "../components/Profile/UserCard";
 import client from "../client";
 import styles from "../chat.module.css";
