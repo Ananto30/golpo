@@ -43,7 +43,7 @@ class Login extends React.Component {
   };
 
   handleSocialLogin = async (user) => {
-    let res = await client.Auth.googleLoginDirect(user);
+    let res = await client.Auth.googleLogin(user);
     if (res.status === 200) {
       this.props.commonStore.setAuthToken(res.data.access_token);
 
