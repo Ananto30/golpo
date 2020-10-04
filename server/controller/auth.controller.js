@@ -56,6 +56,19 @@ exports.getGoogleToken = async (req, res) => {
   }
 };
 
+exports.googleLoginDirect = async (req, res) => {
+  try {
+    const { data } = req.body;
+
+    token = await authService.findOrCreateGoogleUserAndGenerateToken(data);
+
+    res.status(200).json({ access_token: token });
+  } catch (err) {
+    res.status(500).json({ errors: err.message });
+    return;
+  }
+};
+
 exports.validate = (method) => {
   switch (method) {
     case "login": {

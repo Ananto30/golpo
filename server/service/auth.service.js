@@ -57,3 +57,25 @@ exports.getGoogleToken = async (email) => {
 
   return user.google_token;
 };
+
+exports.findOrCreateGoogleUserAndGenerateToken = async (data) => {
+  const user = await userService.getUserByGoogleMail(data._profile.email);
+  const profileData = data._profile;
+  if (!user) {
+    data = {
+      username: profileData.email.split("@")[0],
+      google_id: profileData.sub,
+      google_email: profileData.email,
+      google_name: profileData.name,
+      google_picture: profileData.picture,
+    };
+    user = await userService.createUser(data);
+    await userService.createUserMeta({ username: user.username });
+  }
+
+  let token = jwt.sign({ username: user.username }, config.jwtSecret, {
+    expiresIn: config.jwtExpiration,
+  });
+
+  return token;
+};

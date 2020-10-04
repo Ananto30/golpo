@@ -19,4 +19,10 @@ router.post(
   authController.googleLogin
 );
 
+
+router.post(
+  "/login/google",
+  authController.googleLoginDirect
+);
+
 module.exports = router;
