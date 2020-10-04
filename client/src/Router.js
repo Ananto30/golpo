@@ -11,7 +11,6 @@ import Profile from "./pages/Profile";
 import Users from "./pages/Users";
 
 import ActivityLayout from "./layouts/ActivityLayout";
-import GoogleLogin from "./pages/GoogleLogin";
 import NavigationLayout from "./layouts/NavigationLayout";
 
 const Router = () => {
@@ -22,12 +21,6 @@ const Router = () => {
           path={routes.login}
           exact
           render={(props) => <Login {...props} />}
-        />
-
-        <Route
-          path="/google/auth/:email"
-          exact
-          render={(props) => <GoogleLogin {...props} />}
         />
 
         <PrivateRoute>

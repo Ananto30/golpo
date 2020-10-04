@@ -1,4 +1,4 @@
-import { observable, action, decorate, toJS } from "mobx";
+import { observable, action, decorate } from "mobx";
 import client from "../client";
 
 class ActivityStore {

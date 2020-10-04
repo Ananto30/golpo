@@ -26,9 +26,9 @@ const errorHandler = (err) => {
   }
 };
 
-const verifySuccessCalls = (res) => {
-  if (res.status === 200) return res;
-};
+// const verifySuccessCalls = (res) => {
+//   if (res.status === 200) return res;
+// };
 
 const Auth = {
   login: (username, password) =>
@@ -36,18 +36,7 @@ const Auth = {
       username: username,
       password: password,
     }),
-  getGoogleToken: (email) =>
-    api.get(`/auth/login/googletoken/${email}`),
-  googleLogin: (email, token) =>
-    api.post(
-      "/auth/login/google/success",
-      { email: email },
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-    ),
+  googleLogin: (data) => api.post("/auth/login/google", { data: data }),
 };
 
 const User = {

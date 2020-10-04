@@ -4,15 +4,12 @@ const logger = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 var cors = require("cors");
-const passport = require("passport");
 
 const authRouter = require("./routes/auth");
 const postRouter = require("./routes/post");
 const chatRouter = require("./routes/chat");
 const userRouter = require("./routes/user");
 const activityRouter = require("./routes/activity");
-
-const passportSetup = require("./config/passport-setup");
 
 const config = require("./config");
 
@@ -41,8 +38,6 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.use(passport.initialize());
-
 const mongooseConnectOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -59,27 +54,6 @@ app.use("/api/post", postRouter);
 app.use("/api/chat", chatRouter);
 app.use("/api/user", userRouter);
 app.use("/api/activity", activityRouter);
-
-
-// TODO: this should be moved to some router?
-app.get(
-  "/auth/social/google",
-  passport.authenticate("google", {
-    scope: [
-      "https://www.googleapis.com/auth/plus.login",
-      "https://www.googleapis.com/auth/userinfo.email",
-    ],
-  })
-);
-
-app.get(
-  "/auth/social/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
-  function (req, res) {
-    let user = req.session.passport.user._json;
-    res.redirect("/google/auth/" + user.email);
-  }
-);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
