@@ -1,4 +1,4 @@
-import { Placeholder, Segment } from "semantic-ui-react";
+import { Placeholder } from "semantic-ui-react";
 
 import React from "react";
 

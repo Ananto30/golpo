@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/bin/www"
+    "start": "node ./server/bin/www",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -14,8 +15,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18",
     "morgan": "~1.9.1",
-    "passport": "^0.4.1",
-    "passport-google-oauth": "^2.0.0",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

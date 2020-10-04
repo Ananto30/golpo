@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, List, Label } from "semantic-ui-react";
+import { Image, List } from "semantic-ui-react";
 import Moment from "react-moment";
 
 import { inject, observer } from "mobx-react";

@@ -7,7 +7,7 @@ let socketIns = null;
 class SocketClient {
   socket = null;
   connect() {
-    const socket = socketIOClient("http://localhost:8080", {
+    const socket = socketIOClient("https://golpo13.herokuapp.com", {
       query: { token: commonStore.authToken },
     });
     this.socket = socket;

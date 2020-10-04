@@ -1,12 +1,4 @@
-import {
-  Button,
-  Icon,
-  Input,
-  Menu,
-  Segment,
-  Sidebar,
-  Sticky,
-} from "semantic-ui-react";
+import { Input, Menu, Sidebar, Sticky } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
@@ -64,7 +56,7 @@ class MainNavbar extends React.Component {
                 height: "10vh",
                 border: "none",
                 backgroundColor: "#fff",
-                fontFamily: "monospace"
+                fontFamily: "monospace",
               }}
             >
               <Menu.Menu position="right">
@@ -126,7 +118,7 @@ class MainNavbar extends React.Component {
               height: "100px",
               border: "none",
               backgroundColor: "#fff",
-              fontFamily: "monospace"
+              fontFamily: "monospace",
             }}
           >
             <Menu.Item
