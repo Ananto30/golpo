@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, Header, Icon, Image } from "semantic-ui-react";
+import { Divider, Grid, Header, Icon, Image } from "semantic-ui-react";
 import { Redirect, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
@@ -86,7 +86,9 @@ class Login extends React.Component {
 
               <Header.Subheader>
                 Just another social media who doesn't sell your data{" "}
-                <span role="img">😐</span>
+                <span role="img" aria-label="neutral face">
+                  😐
+                </span>
               </Header.Subheader>
             </Header>
 

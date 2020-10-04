@@ -1,5 +1,5 @@
 import React from "react";
-import { Comment, Icon, Label } from "semantic-ui-react";
+import { Comment, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import { inject, observer } from "mobx-react";

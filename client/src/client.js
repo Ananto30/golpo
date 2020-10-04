@@ -26,9 +26,9 @@ const errorHandler = (err) => {
   }
 };
 
-const verifySuccessCalls = (res) => {
-  if (res.status === 200) return res;
-};
+// const verifySuccessCalls = (res) => {
+//   if (res.status === 200) return res;
+// };
 
 const Auth = {
   login: (username, password) =>
