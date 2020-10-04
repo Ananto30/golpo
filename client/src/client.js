@@ -36,8 +36,7 @@ const Auth = {
       username: username,
       password: password,
     }),
-  getGoogleToken: (email) =>
-    api.get(`/auth/login/googletoken/${email}`),
+  getGoogleToken: (email) => api.get(`/auth/login/googletoken/${email}`),
   googleLogin: (email, token) =>
     api.post(
       "/auth/login/google/success",
@@ -48,6 +47,7 @@ const Auth = {
         },
       }
     ),
+  googleLoginDirect: (data) => api.post("/auth/login/google", { data: data }),
 };
 
 const User = {

@@ -1,11 +1,12 @@
-import {Button, Divider, Grid, Header, Icon, Image,} from "semantic-ui-react";
-import {Redirect, withRouter} from "react-router-dom";
-import {inject, observer} from "mobx-react";
+import { Button, Divider, Grid, Header, Icon, Image } from "semantic-ui-react";
+import { Redirect, withRouter } from "react-router-dom";
+import { inject, observer } from "mobx-react";
 
 import React from "react";
 import client from "../client";
 import routes from "../routes";
-import {LoginForm} from "../components/LoginForm";
+import { LoginForm } from "../components/LoginForm";
+import SocialButton from "../components/Login/SocialButton";
 
 class Login extends React.Component {
   state = {
@@ -14,7 +15,7 @@ class Login extends React.Component {
   };
 
   handleLogin = (e) => {
-    this.setState({requestInit: true});
+    this.setState({ requestInit: true });
     e.preventDefault();
     const data = new FormData(e.target);
     client.Auth.login(data.get("username"), data.get("password"))
@@ -38,21 +39,39 @@ class Login extends React.Component {
       });
   };
   handleGoogleLogin = (e) => {
-    this.setState({requestInit: true});
+    this.setState({ requestInit: true });
+  };
+
+  handleSocialLogin = async (user) => {
+    let res = await client.Auth.googleLoginDirect(user);
+    if (res.status === 200) {
+      this.props.commonStore.setAuthToken(res.data.access_token);
+
+      res = await client.User.getByUsername("me");
+      this.props.commonStore.setLoggedUser({
+        username: res.data.username,
+      });
+      this.props.history.push(routes.home);
+    }
+    console.log(user);
+  };
+
+  handleSocialLoginFailure = (err) => {
+    console.error(err);
   };
 
   render() {
-    const {error, requestInit} = this.state;
+    const { error, requestInit } = this.state;
     const authToken = this.props.commonStore.authToken;
 
-    if (authToken) return <Redirect to={routes.home}/>;
+    if (authToken) return <Redirect to={routes.home} />;
 
     return (
       <Grid centered>
-        <Grid.Row/>
-        <Grid.Row/>
-        <Grid.Row/>
-        <Grid.Row/>
+        <Grid.Row />
+        <Grid.Row />
+        <Grid.Row />
+        <Grid.Row />
         <Grid.Row>
           <Grid.Column
             computer={4}
@@ -62,7 +81,7 @@ class Login extends React.Component {
           >
             <Header as="h2" icon textAlign="center">
               {/* <Icon name="users" circular /> */}
-              <Image src="/images/cb.jpg"/>
+              <Image src="/images/cb.jpg" />
               <Header.Content>Golpo13</Header.Content>
 
               <Header.Subheader>
@@ -71,8 +90,8 @@ class Login extends React.Component {
               </Header.Subheader>
             </Header>
 
-            <br/>
-            <br/>
+            <br />
+            <br />
 
             <LoginForm
               handleLogin={this.handleLogin}
@@ -82,15 +101,19 @@ class Login extends React.Component {
 
             <Divider horizontal>Or</Divider>
 
-            <Button
+            <SocialButton
               color="google plus"
-              href="/auth/social/google"
               disabled={requestInit}
               loading={requestInit}
-              onClick={this.handleGoogleLogin}
+              // onClick={this.handleGoogleLogin}
+              provider="google"
+              appId="841514079806-51ct22q1avsaca08sgdiup3fj33adsi2.apps.googleusercontent.com"
+              onLoginSuccess={this.handleSocialLogin}
+              onLoginFailure={this.handleSocialLoginFailure}
+              // scope={"https://www.googleapis.com/auth/user.gender.read"}
             >
-              <Icon name="google"/> Login with Google
-            </Button>
+              <Icon name="google" /> Login with Google
+            </SocialButton>
           </Grid.Column>
         </Grid.Row>
       </Grid>
