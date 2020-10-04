@@ -28,36 +28,6 @@ exports.verifyUserAndGenerateToken = async (username, password) => {
   return token;
 };
 
-exports.verifyGoogleUserAndGenerateToken = async (email) => {
-  const user = await userService.getUserByGoogleMail(email);
-
-  if (!user) {
-    throw new Error("Invalid credentials");
-  }
-
-  let token = jwt.sign({ username: user.username }, config.jwtSecret, {
-    expiresIn: config.jwtExpiration,
-  });
-
-  // data = {
-  //   username: user.username,
-  //   summary: "logged in! Yee!",
-  // };
-  // await activityService.createActivity(data);
-
-  return token;
-};
-
-exports.getGoogleToken = async (email) => {
-  const user = await userService.getUserByGoogleMail(email);
-
-  if (!user) {
-    throw new Error("Invalid credentials");
-  }
-
-  return user.google_token;
-};
-
 exports.findOrCreateGoogleUserAndGenerateToken = async (data) => {
   const user = await userService.getUserByGoogleMail(data._profile.email);
   const profileData = data._profile;
