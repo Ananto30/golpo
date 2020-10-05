@@ -2,21 +2,15 @@ const ActivityModel = require("../model/activity.model");
 const Activity = ActivityModel.Activity;
 
 exports.getAll = async () => {
-  const activities = await Activity.find({});
-
-  return activities;
+  return await Activity.find({});
 };
 
 exports.getLatest = async (limit) => {
-  const activities = await Activity.find({}).sort({ date: -1 }).limit(limit);
-
-  return activities;
+  return await Activity.find({}).sort({date: -1}).limit(limit);
 };
 
 exports.getByUsername = async (username) => {
-  const activities = await Activity.find({ username: username });
-
-  return activities;
+  return await Activity.find({username: username});
 };
 
 exports.createActivity = async (data) => {

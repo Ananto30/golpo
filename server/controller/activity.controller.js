@@ -4,7 +4,7 @@ exports.getAllActivities = async (req, res) => {
   try {
     // TODO: Make new method?
     // activities = await activityService.getAll();
-    activities = await activityService.getLatest(20);
+    const activities = await activityService.getLatest(20);
 
     res.status(200).json({ activities: activities });
   } catch (err) {
@@ -17,7 +17,7 @@ exports.getActivitiesByToken = async (req, res) => {
   try {
     const { username } = req.decoded;
 
-    activities = await activityService.getByUsername(username);
+    const activities = await activityService.getByUsername(username);
 
     res.status(200).json({ activities: activities });
   } catch (err) {

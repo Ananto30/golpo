@@ -20,10 +20,9 @@ exports.getAllPostsWithCommentCount = async () => {
 };
 
 exports.getPostById = async (id) => {
-  const post = await Post.findOne({
+  return await Post.findOne({
     _id: id,
   });
-  return post;
 };
 
 exports.createPost = async (author, text) => {
@@ -34,7 +33,7 @@ exports.createPost = async (author, text) => {
     comments: [],
   });
 
-  data = {
+  const data = {
     username: author,
     summary: "posted",
     extraText: text.substring(0, 50),
@@ -64,7 +63,7 @@ exports.createComment = async (author, text, postId) => {
     }
   );
 
-  data = {
+  const data = {
     username: author,
     summary: `commented on ${post.author}'s post`,
     extraText: text.substring(0, 50),

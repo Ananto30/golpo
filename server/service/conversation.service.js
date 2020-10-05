@@ -16,7 +16,7 @@ exports.getChatByUsernameForUser = async (sender, receiver) => {
       $all: [sender, receiver],
     },
   });
-  if (!chats || chats.length == 0) {
+  if (!chats || chats.length === 0) {
     chats = await Conversation.create({
       participants: [sender, receiver],
       chats: [],
@@ -42,7 +42,7 @@ exports.sendChat = async (sender, receiver, text) => {
     },
     { upsert: true }
   );
-  if (chats.length == 0) {
+  if (chats.length === 0) {
     chats = await Conversation.create({
       participants: [sender, receiver],
       chats: [],

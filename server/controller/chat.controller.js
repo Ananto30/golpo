@@ -5,7 +5,7 @@ const chatService = require("../service/conversation.service");
 exports.getChats = async (req, res) => {
   try {
     const { username } = req.decoded;
-    chats = await chatService.getChatListAndLastChatForUser(username);
+    const chats = await chatService.getChatListAndLastChatForUser(username);
 
     res.status(200).json({ chats: chats });
   } catch (err) {
@@ -18,7 +18,7 @@ exports.getByReceiver = async (req, res) => {
   try {
     const { username } = req.decoded;
     const { receiver } = req.params;
-    chats = await chatService.getChatByUsernameForUser(username, receiver);
+    const chats = await chatService.getChatByUsernameForUser(username, receiver);
 
     res.status(200).json(chats);
   } catch (err) {
@@ -40,7 +40,7 @@ exports.sendChat = async (req, res) => {
     const { receiver } = req.params;
     const { username } = req.decoded;
 
-    chats = await chatService.sendChat(username, receiver, text);
+    const chats = await chatService.sendChat(username, receiver, text);
 
     res.status(200).json(chats);
   } catch (err) {
@@ -62,7 +62,7 @@ exports.sendMessage = async (req, res) => {
     const { receiver } = req.params;
     const { username } = req.decoded;
 
-    chats = await chatService.sendMessage(username, receiver, text);
+    const chats = await chatService.sendMessage(username, receiver, text);
 
     res.status(200).json(chats);
   } catch (err) {
