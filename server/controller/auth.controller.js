@@ -13,7 +13,7 @@ exports.login = async (req, res) => {
 
     const { username, password } = req.body;
 
-    token = await authService.verifyUserAndGenerateToken(username, password);
+    const token = await authService.verifyUserAndGenerateToken(username, password);
 
     res.status(200).json({ access_token: token });
   } catch (err) {

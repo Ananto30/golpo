@@ -4,7 +4,7 @@ const postService = require("../service/post.service");
 
 exports.getAll = async (req, res) => {
   try {
-    posts = await postService.getAllPostsWithCommentCount();
+    const posts = await postService.getAllPostsWithCommentCount();
 
     res.status(200).json({ posts: posts });
   } catch (err) {
@@ -16,7 +16,7 @@ exports.getAll = async (req, res) => {
 exports.getById = async (req, res) => {
   try {
     const { id } = req.params;
-    post = await postService.getPostById(id);
+    const post = await postService.getPostById(id);
 
     res.status(200).json(post);
   } catch (err) {
@@ -37,7 +37,7 @@ exports.createPost = async (req, res) => {
     const { text } = req.body;
     const { username } = req.decoded;
 
-    post = await postService.createPost(username, text);
+    const post = await postService.createPost(username, text);
 
     res.status(200).json(post);
   } catch (err) {
@@ -59,7 +59,7 @@ exports.createComment = async (req, res) => {
     const { username } = req.decoded;
     const { postId } = req.params;
 
-    post = await postService.createComment(username, text, postId);
+    const post = await postService.createComment(username, text, postId);
 
     res.status(200).json(post);
   } catch (err) {
@@ -71,7 +71,7 @@ exports.createComment = async (req, res) => {
 exports.getPostsByUsername = async (req, res) => {
   try {
     const { username } = req.params;
-    posts = await postService.getPostsByUsername(username);
+    const posts = await postService.getPostsByUsername(username);
 
     res.status(200).json({ posts });
   } catch (err) {
@@ -83,7 +83,7 @@ exports.getPostsByUsername = async (req, res) => {
 exports.getPostsByToken = async (req, res) => {
   try {
     const { username } = req.decoded;
-    posts = await postService.getPostsByUsername(username);
+    const posts = await postService.getPostsByUsername(username);
 
     res.status(200).json({ posts });
   } catch (err) {

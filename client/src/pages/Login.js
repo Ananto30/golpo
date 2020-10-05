@@ -1,4 +1,4 @@
-import { Divider, Grid, Header, Icon, Image } from "semantic-ui-react";
+import { Button, Divider, Grid, Header, Icon, Image } from "semantic-ui-react";
 import { Redirect, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
@@ -6,7 +6,8 @@ import React from "react";
 import client from "../client";
 import routes from "../routes";
 import { LoginForm } from "../components/LoginForm";
-import SocialButton from "../components/Login/SocialButton";
+
+import GoogleLogin from "react-google-login";
 
 class Login extends React.Component {
   state = {
@@ -38,11 +39,8 @@ class Login extends React.Component {
         }
       });
   };
-  handleGoogleLogin = (e) => {
-    this.setState({ requestInit: true });
-  };
 
-  handleSocialLogin = async (user) => {
+  handleGoogleLogin = async (user) => {
     let res = await client.Auth.googleLogin(user);
     if (res.status === 200) {
       this.props.commonStore.setAuthToken(res.data.access_token);
@@ -56,7 +54,7 @@ class Login extends React.Component {
     console.log(user);
   };
 
-  handleSocialLoginFailure = (err) => {
+  handleGoogleLoginFailure = (err) => {
     console.error(err);
   };
 
@@ -103,19 +101,22 @@ class Login extends React.Component {
 
             <Divider horizontal>Or</Divider>
 
-            <SocialButton
-              color="google plus"
-              disabled={requestInit}
-              loading={requestInit}
-              // onClick={this.handleGoogleLogin}
-              provider="google"
-              appId="841514079806-51ct22q1avsaca08sgdiup3fj33adsi2.apps.googleusercontent.com"
-              onLoginSuccess={this.handleSocialLogin}
-              onLoginFailure={this.handleSocialLoginFailure}
-              // scope={"https://www.googleapis.com/auth/user.gender.read"}
-            >
-              <Icon name="google" /> Login with Google
-            </SocialButton>
+            <GoogleLogin
+              clientId="841514079806-51ct22q1avsaca08sgdiup3fj33adsi2.apps.googleusercontent.com"
+              render={(renderProps) => (
+                <Button
+                  color="google plus"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <Icon name="google" /> Login with Google
+                </Button>
+              )}
+              buttonText="Login"
+              onSuccess={this.handleGoogleLogin}
+              onFailure={this.handleGoogleLoginFailure}
+              cookiePolicy={"single_host_origin"}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>

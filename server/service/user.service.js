@@ -5,34 +5,28 @@ const UserInfo = UserModel.UserInfo;
 const activityService = require("./activity.service");
 
 exports.getUserByUsernameAndPass = async (username, password) => {
-  const user = await User.findOne({
+  return await User.findOne({
     username: username,
     password: password,
   });
-
-  return user;
 };
 
 exports.getUserByGoogleMail = async (email) => {
-  const user = await User.findOne({
+  return await User.findOne({
     google_email: email,
   });
-
-  return user;
 };
 
 exports.createUser = async (data) => {
-  const user = await User.create(data);
-
-  return user;
+  return await User.create(data);
 };
 
 exports.updateUser = async (username, updateInfo) => {
-  updates = {};
+  let updates = {};
   if (updateInfo.google_token)
     updates["google_token"] = updateInfo.google_token;
 
-  userInfo = await User.findOneAndUpdate({ username: username }, updates, {
+  const userInfo = await User.findOneAndUpdate({username: username}, updates, {
     new: true,
   });
 
@@ -40,30 +34,24 @@ exports.updateUser = async (username, updateInfo) => {
 };
 
 exports.getAllUsers = async () => {
-  users = await UserInfo.find({});
-
-  return users;
+  return  await UserInfo.find({});
 };
 
 exports.getUserMeta = async (username) => {
-  userInfo = await UserInfo.findOne({ username: username });
-
-  return userInfo;
+  return await UserInfo.findOne({username: username});
 };
 
 exports.createUserMeta = async (data) => {
-  const user = await UserInfo.create(data);
-
-  return user;
+  return await UserInfo.create(data);
 };
 
 exports.updateUserMeta = async (username, updateInfo) => {
-  updates = {};
+  let updates = {};
   if (updateInfo.work) updates["work"] = updateInfo.work;
   if (updateInfo.tagline) updates["tagline"] = updateInfo.tagline;
   if (updateInfo.image) updates["image"] = updateInfo.image;
 
-  userInfo = await UserInfo.findOneAndUpdate({ username: username }, updates, {
+  const userInfo = await UserInfo.findOneAndUpdate({username: username}, updates, {
     new: true,
   });
 
@@ -73,14 +61,13 @@ exports.updateUserMeta = async (username, updateInfo) => {
 };
 
 exports.getUsersMeta = async (usernames) => {
-  usersMeta = await UserInfo.find({
-    username: { $in: usernames },
+  return await UserInfo.find({
+    username: {$in: usernames},
   });
-
-  return usersMeta;
 };
 
 metaUpdateActivity = async (username, updateInfo) => {
+  let data;
   if (updateInfo.image) {
     data = {
       username: username,

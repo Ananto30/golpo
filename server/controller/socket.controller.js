@@ -35,7 +35,7 @@ class Realtime {
     this._io = io;
 
     io.on("connection", (socket) => {
-      var self = this;
+      let self = this;
       const { username } = socket.decoded;
       this._users[username] = socket.id;
 

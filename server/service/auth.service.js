@@ -19,17 +19,17 @@ exports.verifyUserAndGenerateToken = async (username, password) => {
     expiresIn: config.jwtExpiration,
   });
 
-  data = {
-    username: username,
-    summary: "logged in! Yee!",
-  };
+  // const data = {
+  //   username: username,
+  //   summary: "logged in! Yee!",
+  // };
   // await activityService.createActivity(data);
 
   return token;
 };
 
 exports.findOrCreateGoogleUserAndGenerateToken = async (data) => {
-  const user = await userService.getUserByGoogleMail(data._profile.email);
+  let user = await userService.getUserByGoogleMail(data._profile.email);
   const profileData = data._profile;
   if (!user) {
     data = {
@@ -43,7 +43,7 @@ exports.findOrCreateGoogleUserAndGenerateToken = async (data) => {
     await userService.createUserMeta({ username: user.username });
   }
 
-  let token = jwt.sign({ username: user.username }, config.jwtSecret, {
+  const token = jwt.sign({ username: user.username }, config.jwtSecret, {
     expiresIn: config.jwtExpiration,
   });
 

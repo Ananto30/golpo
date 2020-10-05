@@ -4,7 +4,7 @@ const userService = require("../service/user.service");
 
 exports.getAllUsers = async (req, res) => {
   try {
-    users = await userService.getAllUsers();
+    const users = await userService.getAllUsers();
 
     res.status(200).json({ users: users });
   } catch (err) {
@@ -17,7 +17,7 @@ exports.getUserMetaByToken = async (req, res) => {
   try {
     const { username } = req.decoded;
 
-    userMeta = await userService.getUserMeta(username);
+    const userMeta = await userService.getUserMeta(username);
 
     res.status(200).json(userMeta);
   } catch (err) {
@@ -30,7 +30,7 @@ exports.getUserMetaByUsername = async (req, res) => {
   try {
     const { username } = req.params;
 
-    userMeta = await userService.getUserMeta(username);
+    const userMeta = await userService.getUserMeta(username);
 
     res.status(200).json(userMeta);
   } catch (err) {
@@ -50,7 +50,7 @@ exports.updateMeta = async (req, res) => {
 
     const { username } = req.decoded;
 
-    userMeta = await userService.updateUserMeta(username, req.body);
+    const userMeta = await userService.updateUserMeta(username, req.body);
 
     res.status(200).json(userMeta);
   } catch (err) {
@@ -70,7 +70,7 @@ exports.getUsersMeta = async (req, res) => {
 
     const { usernames } = req.query;
 
-    usersMeta = await userService.getUsersMeta(usernames);
+    const usersMeta = await userService.getUsersMeta(usernames);
 
     res.status(200).json({ users: usersMeta });
   } catch (err) {
