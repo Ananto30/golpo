@@ -37,6 +37,9 @@ const Auth = {
       password: password,
     }),
   googleLogin: (data) => api.post("/auth/login/google", { data: data }),
+  getGoogleAuthUrl: () => api.get("/auth/login/google/getAuthUrl"),
+  getTokenByGoogleCode: (code) =>
+    api.post("/auth/login/google/getToken", { code: code }),
 };
 
 const User = {
