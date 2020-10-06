@@ -15,7 +15,7 @@ const UserCard = ({ userInfo, ownerProfile }) => {
     <Card fluid>
       <UpdateProfileImageModal userInfo={uInfo} ownerProfile={ownerProfile} />
       <Card.Content>
-        <Card.Header style={{ fontFamily: "monospace" }}>
+        <Card.Header style={{ fontFamily: "'Ubuntu', sans-serif;" }}>
           {uInfo.username}
         </Card.Header>
         <Card.Meta>

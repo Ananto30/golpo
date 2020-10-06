@@ -56,7 +56,7 @@ class MainNavbar extends React.Component {
                 height: "10vh",
                 border: "none",
                 backgroundColor: "#fff",
-                fontFamily: "monospace",
+                fontFamily: "'Ubuntu', sans-serif",
               }}
             >
               <Menu.Menu position="right">
@@ -118,7 +118,7 @@ class MainNavbar extends React.Component {
               height: "100px",
               border: "none",
               backgroundColor: "#fff",
-              fontFamily: "monospace",
+              fontFamily: "'Ubuntu', sans-serif",
             }}
           >
             <Menu.Item
