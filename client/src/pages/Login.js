@@ -38,24 +38,6 @@ class Login extends React.Component {
       });
   };
 
-  handleGoogleLogin = async (user) => {
-    let res = await client.Auth.googleLogin(user);
-    if (res.status === 200) {
-      this.props.commonStore.setAuthToken(res.data.access_token);
-
-      res = await client.User.getByUsername("me");
-      this.props.commonStore.setLoggedUser({
-        username: res.data.username,
-      });
-      this.props.history.push(routes.home);
-    }
-    console.log(user);
-  };
-
-  handleGoogleLoginFailure = (err) => {
-    console.error(err);
-  };
-
   handleGetGoogleAuthUrl = async () => {
     this.setState({ requestInit: true });
     let res = await client.Auth.getGoogleAuthUrl();
