@@ -9,7 +9,9 @@ class App extends React.Component {
   }
   render() {
     return (
-      <Container style={{ maxHeight: "90vh", fontFamily: "monospace"}}>
+      <Container
+        style={{ maxHeight: "90vh", fontFamily: "'Ubuntu', sans-serif" }}
+      >
         <Router />
       </Container>
     );

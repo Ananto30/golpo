@@ -28,7 +28,7 @@ class Post extends React.Component {
           <Item.Header
             as={Link}
             to={`/profile/${post.author}`}
-            style={{ fontFamily: "monospace" }}
+            style={{ fontFamily: "'Ubuntu', sans-serif" }}
           >
             {post.author}
           </Item.Header>

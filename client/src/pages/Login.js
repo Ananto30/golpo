@@ -7,8 +7,6 @@ import client from "../client";
 import routes from "../routes";
 import { LoginForm } from "../components/LoginForm";
 
-import GoogleLogin from "react-google-login";
-
 class Login extends React.Component {
   state = {
     error: null,
@@ -40,22 +38,13 @@ class Login extends React.Component {
       });
   };
 
-  handleGoogleLogin = async (user) => {
-    let res = await client.Auth.googleLogin(user);
+  handleGetGoogleAuthUrl = async () => {
+    this.setState({ requestInit: true });
+    let res = await client.Auth.getGoogleAuthUrl();
     if (res.status === 200) {
-      this.props.commonStore.setAuthToken(res.data.access_token);
-
-      res = await client.User.getByUsername("me");
-      this.props.commonStore.setLoggedUser({
-        username: res.data.username,
-      });
-      this.props.history.push(routes.home);
+      console.log(res.data.auth_url);
+      window.location = res.data.auth_url;
     }
-    console.log(user);
-  };
-
-  handleGoogleLoginFailure = (err) => {
-    console.error(err);
   };
 
   render() {
@@ -101,22 +90,14 @@ class Login extends React.Component {
 
             <Divider horizontal>Or</Divider>
 
-            <GoogleLogin
-              clientId="841514079806-51ct22q1avsaca08sgdiup3fj33adsi2.apps.googleusercontent.com"
-              render={(renderProps) => (
-                <Button
-                  color="google plus"
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                >
-                  <Icon name="google" /> Login with Google
-                </Button>
-              )}
-              buttonText="Login"
-              onSuccess={this.handleGoogleLogin}
-              onFailure={this.handleGoogleLoginFailure}
-              cookiePolicy={"single_host_origin"}
-            />
+            <Button
+              color="google plus"
+              onClick={this.handleGetGoogleAuthUrl}
+              disabled={requestInit}
+              loading={requestInit}
+            >
+              <Icon name="google" /> Login with Google
+            </Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
