@@ -16,7 +16,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
     "morgan": "~1.9.1",
-    "socket.io": "^2.4.0"
+    "socket.io": "^2.4.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
