@@ -11,12 +11,12 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "express-validator": "^6.6.1",
+    "express-validator": "^6.9.2",
     "googleapis": "^60.0.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.9",
+    "mongoose": "^5.11.17",
     "morgan": "~1.9.1",
-    "socket.io": "^2.4.0"
+    "socket.io": "^2.4.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
