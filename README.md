@@ -1,4 +1,4 @@
-# Golpo13 (v2)
+# Golpo
 
 [![Depfu](https://badges.depfu.com/badges/c2893ad1ca6705f6435fe22a4806162f/status.svg)](https://depfu.com)
 [![Depfu](https://badges.depfu.com/badges/c2893ad1ca6705f6435fe22a4806162f/overview.svg)](https://depfu.com/github/Ananto30/golpo13-v2?project_id=13397)
