@@ -1,7 +1,7 @@
 # Golpo
 
 [![Depfu](https://badges.depfu.com/badges/c2893ad1ca6705f6435fe22a4806162f/status.svg)](https://depfu.com)
-[![Depfu](https://badges.depfu.com/badges/c2893ad1ca6705f6435fe22a4806162f/overview.svg)](https://depfu.com/github/Ananto30/golpo13-v2?project_id=13397)
+[![Depfu](https://badges.depfu.com/badges/c2893ad1ca6705f6435fe22a4806162f/count.svg)](https://depfu.com/github/Ananto30/golpo?project_id=13397)
 
 A simple social network web app built with React and Express. This is the 2nd version of the https://github.com/Ananto30/golpo13 which I built a few years back. The main purpose is to write clean code and use a frontend technology like React.
 
